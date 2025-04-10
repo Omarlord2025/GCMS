@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Management - GCMS Insights</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <meta name="description"
+        content="Advanced Government Case and Citizen Management System developed by passionate students">
+    <link rel="icon" type="image/x-icon" href="court-icon.png">
+    <style>
+        :root {
+            --color-theme-50: #EBFFE8;
+            --color-theme-100: #eeefc3;
+            --color-theme-200: #d9dfa0;
+            --color-theme-300: #bdcf81;
+            --color-theme-400: #afbf65;
+            --color-theme-500: #aaaf4c;
+            --color-theme-600: #c3c317;
+            --color-theme-700: #858823;
+            --color-theme-800: #9fbc1d;
+            --color-theme-900: #5b6008;
+            --color-theme-950: #3f4d00;
+            --heading-font: 'Roboto', sans-serif;
+            --body-font: 'Lato', sans-serif;
+            --bg-color: #f9f9f9;
+            --text-color: #333;
+            --card-bg: white;
+            --header-bg: white;
+            --border-color: #eee;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --dark-olive: #112f28;
+            --secondary: #8f7a4b;
+            --accent: #d8bd71;
+            --primary: #184138;
+            --off-white: #f5e9d0;
+            --lighter-primary: #276659;
+        }
+
+        /* Dark Theme Variables */
+        .dark-theme {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --card-bg: #1e1e1e;
+            --header-bg: #1e1e1e;
+            --border-color: #333;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --color-theme-50: #1a1a1a;
+            --dark-olive: #0a1f1a;
+            --primary: #0d2a24;
+            --lighter-primary: #09a284;
+            --secondary: #6a5a36;
+            --accent: #a58d4f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--body-font);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--accent);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header Styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: var(--header-bg);
+            box-shadow: 0 2px 10px var(--shadow-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            color: var(--color-theme-500);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--color-theme-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-theme-700);
+            font-weight: bold;
+        }
+
+        /* Theme Toggle Styles */
+        .theme-toggle {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: 1.5rem;
+            cursor: pointer;
+        }
+
+        .theme-toggle-checkbox {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .theme-toggle-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            cursor: pointer;
+            width: 50px;
+            height: 26px;
+            background: var(--accent);
+            border-radius: 50px;
+            padding: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .theme-toggle-label:hover {
+            background: var(--secondary);
+        }
+
+        .theme-toggle-ball {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle-checkbox:checked+.theme-toggle-label .theme-toggle-ball {
+            transform: translateX(24px);
+        }
+
+        .theme-toggle-sun,
+        .theme-toggle-moon {
+            font-size: 14px;
+            color: white;
+        }
+
+        .theme-toggle-sun {
+            margin-right: 5px;
+        }
+
+        .theme-toggle-moon {
+            margin-left: 5px;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .directory-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .directory-header h2 {
+            font-family: var(--heading-font);
+            color: var(--lighter-primary);
+            font-size: 1.8rem;
+        }
+
+        /* Buttons */
+        .add-citizen-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .add-citizen-btn:hover {
+            background-color: var(--dark-olive);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Search and Filter */
+        .search-filter-container {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .filter-dropdown {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .search-box input,
+        .filter-dropdown select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--accent);
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus,
+        .filter-dropdown select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(170, 175, 76, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-theme-400);
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+
+        thead {
+            background-color: var(--color-theme-50);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        th {
+            text-align: left;
+            padding: 1rem;
+            font-weight: 500;
+            color: var(--lighter-primary);
+            font-family: var(--heading-font);
+        }
+
+        td {
+            padding: 1.2rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .citizen-id {
+            color: var(--color-theme-500);
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--color-theme-500);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-right: 0.5rem;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+        }
+
+        .action-btn:hover {
+            background-color: var(--color-theme-50);
+            color: var(--color-theme-600);
+            transform: translateY(-2px);
+        }
+
+        .action-btn:active {
+            transform: translateY(0);
+        }
+
+        .action-btn i {
+            font-size: 1rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            padding: 2rem;
+            box-shadow: 0 15px 30px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h3 {
+            font-family: var(--heading-font);
+            color: var(--accent);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #ff6b6b;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #ff5252;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--lighter-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-family: var(--body-font);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(170, 175, 76, 0.2);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+
+        .btn-cancel:hover {
+            background-color: var(--color-theme-50);
+        }
+
+        .btn-submit {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--dark-olive);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow-color);
+        }
+
+        /* Citizen Photo */
+        .citizen-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--color-theme-600); /* Using a vibrant theme yellow */
+            box-shadow: 0 0 10px rgba(195, 195, 23, 0.5); /* var(--color-theme-600) in rgba */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .citizen-photo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(195, 195, 23, 0.7); /* Brighter glow */
+        }
+
+        /* Dark mode adjustments for photos */
+        .dark-theme .citizen-photo {
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(168, 141, 79, 0.5); /* var(--accent) in rgba */
+        }
+
+        .dark-theme .citizen-photo:hover {
+            box-shadow: 0 0 15px rgba(168, 141, 79, 0.7);
+        }
+        /* Photo modal dark mode adjustments */
+        .dark-theme .photo-modal-content img {
+            filter: brightness(0.9);
+        }
+        /* Add to the style section */
+        .photo-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .photo-modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .photo-modal-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+
+        .close-photo-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+        }
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .search-filter-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box,
+            .filter-dropdown {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .main-content {
+                padding: 1.5rem;
+            }
+
+            .directory-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .action-btn {
+                margin-bottom: 0.5rem;
+                width: 100%;
+                justify-content: center;
+            }
+
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .modal-content {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .user-info {
+                gap: 1rem;
+            }
+
+            .theme-toggle {
+                margin-left: 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <div class="logo">
+                <span style="font-size: 2rem; margin-right: 10px;">⚖️</span>
+            </div>
+            <h1>Citizen Management</h1>
+        </div>
+        <div class="user-info">
+            <div class="theme-toggle">
+                <input type="checkbox" id="theme-toggle-checkbox" class="theme-toggle-checkbox">
+                <label for="theme-toggle-checkbox" class="theme-toggle-label">
+                    <span class="theme-toggle-sun">
+                        <i class="fas fa-sun"></i>
+                    </span>
+                    <span class="theme-toggle-moon">
+                        <i class="fas fa-moon"></i>
+                    </span>
+                    <span class="theme-toggle-ball"></span>
+                </label>
+            </div>
+            <div class="user-avatar">AD</div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="directory-header">
+            <h2>Citizens Directory</h2>
+            <button class="add-citizen-btn" id="openAddModal">
+                <i class="fas fa-plus"></i>
+                Add Citizen
+            </button>
+        </div>
+        <div class="search-filter-container">
+            <div class="search-box">
+                <input type="text" placeholder="Search citizens..." id="searchInput">
+            </div>
+            <div class="filter-dropdown">
+                <select id="filterNationalId" class="form-control">
+                    <option value="">National ID</option>
+                    <!-- Options will be populated dynamically -->
+                </select>
+            </div>
+            <div class="filter-dropdown">
+                <select id="filterFullName" class="form-control">
+                    <option value="">Full Name</option>
+                    <!-- Options will be populated dynamically -->
+                </select>
+            </div>
+            <div class="filter-dropdown">
+                <select id="filterJobTitle" class="form-control">
+                    <option value="">Job Title</option>
+                    <!-- Options will be populated dynamically -->
+                </select>
+            </div>
+            <div class="filter-dropdown">
+                <select id="filterMotherName" class="form-control">
+                    <option value="">Mother Name</option>
+                    <!-- Options will be populated dynamically -->
+                </select>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>National ID</th>
+                    <th>Full Name</th>
+                    <th>Job Title</th>
+                    <th>Mother Name</th>
+                    <th>Photo</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="citizensTableBody">
+                <!-- Table content will be populated by JavaScript -->
+            </tbody>
+        </table>
+    </main>
+
+    <!-- Add Citizen Modal -->
+    <div class="modal" id="addCitizenModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Citizen</h3>
+                <button class="close-modal" id="closeAddModal">&times;</button>
+            </div>
+            <form id="addCitizenForm">
+                <div class="form-group">
+                    <label for="citizenId">National ID</label>
+                    <input type="text" id="citizenId" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="citizenName">Full Name</label>
+                    <input type="text" id="citizenName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="citizenJobTitle">Job Title</label>
+                    <input type="text" id="citizenJobTitle" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="citizenMotherName">Mother Name</label>
+                    <input type="text" id="citizenMotherName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="citizenPhoto">Photo</label>
+                    <input type="file" id="citizenPhoto" class="form-control" accept="image/*">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cancel" id="cancelAddCitizen">Cancel</button>
+                    <button type="submit" class="btn btn-submit">Add Citizen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Citizen Modal -->
+    <div class="modal" id="editCitizenModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Citizen</h3>
+                <button class="close-modal" id="closeEditModal">&times;</button>
+            </div>
+            <form id="editCitizenForm">
+                <div class="form-group">
+                    <label for="editCitizenId">National ID</label>
+                    <input type="text" id="editCitizenId" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="editCitizenName">Full Name</label>
+                    <input type="text" id="editCitizenName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="editCitizenJobTitle">Job Title</label>
+                    <input type="text" id="editCitizenJobTitle" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="editCitizenMotherName">Mother Name</label>
+                    <input type="text" id="editCitizenMotherName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="editCitizenPhoto">Update Photo</label>
+                    <input type="file" id="editCitizenPhoto" class="form-control" accept="image/*">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cancel" onclick="closeEditModal()">Cancel</button>
+                    <button type="submit" class="btn btn-submit">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Assign Case Modal -->
+    <div class="modal" id="assignCaseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Assign Case</h3>
+                <button class="close-modal" id="closeAssignCaseModal">&times;</button>
+            </div>
+            <form id="assignCaseForm">
+                <div class="form-group">
+                    <label for="caseTitle">Case Title</label>
+                    <input type="text" id="caseTitle" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="caseDescription">Case Description</label>
+                    <textarea id="caseDescription" class="form-control" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="statusInput">Status</label>
+                    <select class="form-select" id="statusInput" required>
+                        <option value="Pending">Pending</option>
+                        <option value="Active">Active</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-cancel" id="cancelAssignCase">Cancel</button>
+                    <button type="submit" class="btn btn-submit">Assign Case</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Photo Modal -->
+    <div class="photo-modal" id="photoModal">
+        <span class="close-photo-modal">&times;</span>
+        <div class="photo-modal-content">
+            <img id="expandedPhoto" src="" alt="Expanded Citizen Photo">
+        </div>
+    </div>
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('theme-toggle-checkbox');
+        const currentTheme = localStorage.getItem('theme') ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+            themeToggle.checked = true;
+        }
+
+        themeToggle.addEventListener('change', function () {
+            if (this.checked) {
+                document.body.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.classList.remove('dark-theme');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        // DOM elements
+            const citizensTableBody = document.getElementById("citizensTableBody");
+            const editCitizenModal = document.getElementById("editCitizenModal");
+            const closeEditModalBtn = document.getElementById("closeEditModal");
+            const editCitizenForm = document.getElementById("editCitizenForm");
+            const openAddModalBtn = document.getElementById("openAddModal");
+            const closeAddModalBtn = document.getElementById("closeAddModal");
+            const cancelAddCitizenBtn = document.getElementById("cancelAddCitizen");
+            const addCitizenModal = document.getElementById("addCitizenModal");
+            const addCitizenForm = document.getElementById("addCitizenForm");
+            const assignCaseModal = document.getElementById("assignCaseModal");
+            const closeAssignCaseModalBtn = document.getElementById("closeAssignCaseModal");
+            const cancelAssignCaseBtn = document.getElementById("cancelAssignCase");
+            const assignCaseForm = document.getElementById("assignCaseForm");
+            const searchInput = document.getElementById("searchInput");
+            const filterNationalId = document.getElementById("filterNationalId");
+            const filterFullName = document.getElementById("filterFullName");
+            const filterJobTitle = document.getElementById("filterJobTitle");
+            const filterMotherName = document.getElementById("filterMotherName");
+
+            let currentCitizenId = null;
+
+            // Initialize the page
+            document.addEventListener('DOMContentLoaded', () => {
+                fetchCitizens();
+                setupEventListeners();
+            });
+
+            function setupEventListeners() {
+                // Modal controls
+                openAddModalBtn.addEventListener("click", () => addCitizenModal.style.display = "flex");
+                closeAddModalBtn.addEventListener("click", () => addCitizenModal.style.display = "none");
+                cancelAddCitizenBtn.addEventListener("click", () => addCitizenModal.style.display = "none");
+                closeEditModalBtn.addEventListener("click", closeEditModal);
+                closeAssignCaseModalBtn.addEventListener("click", closeAssignCaseModal);
+                cancelAssignCaseBtn.addEventListener("click", closeAssignCaseModal);
+
+                // Form submissions
+                addCitizenForm.addEventListener("submit", handleAddCitizen);
+                editCitizenForm.addEventListener("submit", handleEditCitizen);
+                assignCaseForm.addEventListener("submit", handleAssignCase);
+
+                // Search and filter
+                searchInput.addEventListener("input", () => fetchCitizens());
+                filterNationalId.addEventListener("change", () => fetchCitizens());
+                filterFullName.addEventListener("change", () => fetchCitizens());
+                filterJobTitle.addEventListener("change", () => fetchCitizens());
+                filterMotherName.addEventListener("change", () => fetchCitizens());
+            }
+
+            // Modal functions
+            function openAssignCaseModal(citizenId) {
+                currentCitizenId = citizenId;
+                assignCaseModal.style.display = "flex";
+            }
+
+            function closeAssignCaseModal() {
+                assignCaseModal.style.display = "none";
+                assignCaseForm.reset();
+            }
+
+            function closeEditModal() {
+                editCitizenModal.style.display = "none";
+                editCitizenForm.reset();
+            }
+
+            // Data functions
+            async function fetchCitizens() {
+                try {
+                    const response = await fetch("/api/citizens");
+                    if (!response.ok) throw new Error('Failed to fetch citizens');
+
+                    const citizens = await response.json();
+                    const filteredCitizens = filterCitizens(citizens);
+                    renderCitizensTable(filteredCitizens);
+                    populateFilterOptions(citizens);
+                } catch (error) {
+                    console.error("Error fetching citizens:", error);
+                    alert("Failed to load citizens. Please try again.");
+                }
+            }
+
+            function filterCitizens(citizens) {
+                const searchTerm = searchInput.value.toLowerCase();
+                const nationalIdFilter = filterNationalId.value;
+                const fullNameFilter = filterFullName.value;
+                const jobTitleFilter = filterJobTitle.value;
+                const motherNameFilter = filterMotherName.value;
+
+                return citizens.filter(citizen => {
+                    return (citizen.id.toLowerCase().includes(searchTerm) &&
+                        (nationalIdFilter === "" || citizen.id === nationalIdFilter) &&
+                        (fullNameFilter === "" || citizen.name === fullNameFilter) &&
+                        (jobTitleFilter === "" || citizen.jobTitle === jobTitleFilter) &&
+                        (motherNameFilter === "" || citizen.motherName === motherNameFilter));
+                });
+            }
+
+            function populateFilterOptions(citizens) {
+                const nationalIds = [...new Set(citizens.map(citizen => citizen.id))];
+                const fullNames = [...new Set(citizens.map(citizen => citizen.name))];
+                const jobTitles = [...new Set(citizens.map(citizen => citizen.jobTitle))];
+                const motherNames = [...new Set(citizens.map(citizen => citizen.motherName))];
+
+                populateDropdown(filterNationalId, nationalIds);
+                populateDropdown(filterFullName, fullNames);
+                populateDropdown(filterJobTitle, jobTitles);
+                populateDropdown(filterMotherName, motherNames);
+            }
+
+            function populateDropdown(dropdown, options) {
+                dropdown.innerHTML = '<option value="">All</option>';
+                options.forEach(option => {
+                    const optionElement = document.createElement("option");
+                    optionElement.value = option;
+                    optionElement.textContent = option;
+                    dropdown.appendChild(optionElement);
+                });
+            }
+                // Add to the setupEventListeners function
+                document.querySelector('.close-photo-modal').addEventListener('click', closePhotoModal);
+                document.getElementById('photoModal').addEventListener('click', function (e) {
+                    if (e.target === this) closePhotoModal();
+                });
+
+                // Add these new functions
+                function openPhotoModal(photoUrl) {
+                    const modal = document.getElementById('photoModal');
+                    const img = document.getElementById('expandedPhoto');
+                    img.src = photoUrl;
+                    modal.style.display = 'flex';
+                }
+
+                function closePhotoModal() {
+                    document.getElementById('photoModal').style.display = 'none';
+                }
+
+                // Modify the renderCitizensTable function to make photos clickable
+                function renderCitizensTable(citizens) {
+                    citizensTableBody.innerHTML = "";
+
+                    if (citizens.length === 0) {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `<td colspan="6" style="text-align: center;">No citizens found</td>`;
+                        citizensTableBody.appendChild(row);
+                        return;
+                    }
+
+                    citizens.forEach(citizen => {
+                        const photoUrl = citizen.photo ? `/uploads/${citizen.photo}` : "";
+                        const row = document.createElement("tr");
+                        row.innerHTML = `
+                        <td>${citizen.id}</td>
+                        <td>${citizen.name}</td>
+                        <td>${citizen.jobTitle}</td>
+                        <td>${citizen.motherName}</td>
+                        <td>
+                            <img src="${photoUrl}" alt="Citizen Photo" class="citizen-photo" 
+                                onclick="${photoUrl ? `openPhotoModal('${photoUrl}')` : ''}"
+                                onerror="this.style.display='none'">
+                        </td>
+                        <td>
+                            <button class="action-btn" onclick="openEditModal('${citizen.id}', '${citizen.name}', '${citizen.jobTitle}', '${citizen.motherName}')">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="action-btn" onclick="deleteCitizen('${citizen.id}')">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                            <button class="action-btn" onclick="openAssignCaseModal('${citizen.id}')">
+                                <i class="fas fa-gavel"></i> Assign Case
+                            </button>
+                        </td>
+                    `;
+                        citizensTableBody.appendChild(row);
+                    });
+                }
+
+            function openEditModal(id, name, jobTitle, motherName) {
+                const idInput = document.getElementById("editCitizenId");
+                idInput.value = id;
+                idInput.dataset.originalId = id;
+                document.getElementById("editCitizenId").value = id;
+                document.getElementById("editCitizenName").value = name;
+                document.getElementById("editCitizenJobTitle").value = jobTitle;
+                document.getElementById("editCitizenMotherName").value = motherName;
+                editCitizenModal.style.display = "flex";
+            }
+
+            // Form handlers
+            async function handleAddCitizen(e) {
+                e.preventDefault();
+
+                const formData = new FormData();
+                formData.append("id", document.getElementById("citizenId").value);
+                formData.append("name", document.getElementById("citizenName").value);
+                formData.append("jobTitle", document.getElementById("citizenJobTitle").value);
+                formData.append("motherName", document.getElementById("citizenMotherName").value);
+
+                const photoFile = document.getElementById("citizenPhoto").files[0];
+                if (photoFile) formData.append("photo", photoFile);
+
+                try {
+                    const response = await fetch("/api/citizens", {
+                        method: "POST",
+                        body: formData,
+                    });
+
+                    if (response.ok) {
+                        fetchCitizens();
+                        addCitizenModal.style.display = "none";
+                        addCitizenForm.reset();
+                        alert("Citizen added successfully!");
+                    } else {
+                        throw new Error(await response.text());
+                    }
+                } catch (error) {
+                    console.error("Error adding citizen:", error);
+                    alert("Failed to add citizen. Please try again.");
+                }
+            }
+
+            async function handleEditCitizen(e) {
+                    e.preventDefault();
+
+                    const formData = new FormData();
+                    const oldId = document.getElementById("editCitizenId").dataset.originalId;
+
+                    formData.append("id", document.getElementById("editCitizenId").value);
+                    formData.append("name", document.getElementById("editCitizenName").value);
+                    formData.append("jobTitle", document.getElementById("editCitizenJobTitle").value);
+                    formData.append("motherName", document.getElementById("editCitizenMotherName").value);
+
+                    const photoFile = document.getElementById("editCitizenPhoto").files[0];
+                    if (photoFile) formData.append("photo", photoFile);
+
+                    try {
+                        const response = await fetch(`/api/citizens/${oldId}`, {
+                            method: "PUT",
+                            body: formData,
+                        });
+
+                        if (!response.ok) throw new Error(await response.text());
+
+                        fetchCitizens();
+                        closeEditModal();
+                        alert("Citizen updated successfully!");
+                    } catch (error) {
+                        console.error("Error updating citizen:", error);
+                        alert("Failed to update citizen. Please try again.");
+                    }
+                }
+                
+            async function handleAssignCase(e) {
+                e.preventDefault();
+
+                if (!currentCitizenId) return;
+
+                const caseData = {
+                    citizenId: currentCitizenId,
+                    caseTitle: document.getElementById("caseTitle").value,
+                    status: document.getElementById("statusInput").value,
+                    caseDescription: document.getElementById("caseDescription").value,
+                };
+
+                try {
+                    const response = await fetch("/api/cases", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(caseData),
+                    });
+
+                    if (response.ok) {
+                        fetchCitizens();
+                        closeAssignCaseModal();
+                        alert("Case assigned successfully!");
+                    } else {
+                        throw new Error(await response.text());
+                    }
+                } catch (error) {
+                    console.error("Error assigning case:", error);
+                    alert("Failed to assign case. Please try again.");
+                }
+            }
+
+            // Citizen actions
+            async function deleteCitizen(id) {
+                if (!confirm("Are you sure you want to delete this citizen?")) return;
+
+                try {
+                    const response = await fetch(`/api/citizens/${id}`, {
+                        method: "DELETE",
+                    });
+
+                    if (response.ok) {
+                        fetchCitizens();
+                        alert("Citizen deleted successfully!");
+                    } else {
+                        throw new Error(await response.text());
+                    }
+                } catch (error) {
+                    console.error("Error deleting citizen:", error);
+                    alert("Failed to delete citizen. Please try again.");
+                }
+            }
+
+            // Make functions available globally for inline event handlers
+            window.openEditModal = openEditModal;
+            window.openAssignCaseModal = openAssignCaseModal;
+            window.deleteCitizen = deleteCitizen;
+    </script>
+</body>
+
+</html>

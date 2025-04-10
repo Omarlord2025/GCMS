@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - GCMS Insights</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <meta name="description"
+        content="Advanced Government Case and Citizen Management System developed by passionate students">
+    <link rel="icon" type="image/x-icon" href="court-icon.png">
+    <style>
+        :root {
+            --color-theme-50: #EBFFE8;
+            --color-theme-100: #eeefc3;
+            --color-theme-200: #d9dfa0;
+            --color-theme-300: #bdcf81;
+            --color-theme-400: #afbf65;
+            --color-theme-500: #aaaf4c;
+            --color-theme-600: #c3c317;
+            --color-theme-700: #858823;
+            --color-theme-800: #9fbc1d;
+            --color-theme-900: #5b6008;
+            --color-theme-950: #3f4d00;
+            --heading-font: 'Roboto', sans-serif;
+            --body-font: 'Lato', sans-serif;
+            --dark-olive: #112f28;
+            --secondary: #8f7a4b;
+            --accent: #d8bd71;
+            --primary: #184138;
+            --off-white: #f5e9d0;
+            --bg-color: #f9f9f9;
+            --text-color: #333;
+            --card-bg: white;
+            --header-bg: white;
+            --border-color: #eee;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Dark Theme Variables */
+        .dark-theme {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --card-bg: #1e1e1e;
+            --header-bg: #1e1e1e;
+            --border-color: #333;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --off-white: #1a1a1a;
+            --primary: #2c7a70;
+            --secondary: #b4a267;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--body-font);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Main Login Container */
+        .login-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .login-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border-top: 5px solid var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .login-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h2 {
+            font-family: var(--heading-font);
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: var(--secondary);
+            font-size: 1rem;
+        }
+
+        .login-icon {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(216, 189, 113, 0.2);
+        }
+
+        .password-field {
+            position: relative;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--secondary);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--dark-olive);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(24, 65, 56, 0.3);
+        }
+
+        /* Alert Styles */
+        .alert {
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+
+        .alert-danger {
+            background-color: rgba(231, 76, 60, 0.1);
+            border: 1px solid rgba(231, 76, 60, 0.3);
+            color: #e74c3c;
+        }
+
+        .alert-success {
+            background-color: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            color: #2ecc71;
+        }
+
+        /* Footer - Consistent with Landing.html */
+        footer {
+            background-color: var(--dark-olive);
+            color: white;
+            padding: 1.5rem 5%;
+            text-align: center;
+        }
+
+        .copyright {
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* Theme Toggle Styles - Same as Landing.html */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle-checkbox {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .theme-toggle-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            cursor: pointer;
+            width: 50px;
+            height: 26px;
+            background: var(--accent);
+            border-radius: 50px;
+            padding: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .theme-toggle-label:hover {
+            background: var(--secondary);
+        }
+
+        .theme-toggle-ball {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle-checkbox:checked+.theme-toggle-label .theme-toggle-ball {
+            transform: translateX(24px);
+        }
+
+        .theme-toggle-sun,
+        .theme-toggle-moon {
+            font-size: 14px;
+            color: white;
+        }
+
+        .theme-toggle-sun {
+            margin-right: 5px;
+        }
+
+        .theme-toggle-moon {
+            margin-left: 5px;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .login-container {
+                padding: 1rem;
+            }
+
+            .login-card {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .login-header h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Theme toggle moved to fixed position -->
+    <div class="theme-toggle">
+        <input type="checkbox" id="theme-toggle-checkbox" class="theme-toggle-checkbox">
+        <label for="theme-toggle-checkbox" class="theme-toggle-label">
+            <span class="theme-toggle-sun">
+                <i class="fas fa-sun"></i>
+            </span>
+            <span class="theme-toggle-moon">
+                <i class="fas fa-moon"></i>
+            </span>
+            <span class="theme-toggle-ball"></span>
+        </label>
+    </div>
+
+    <!-- Login Content -->
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h2>Welcome Back</h2>
+                <p>Sign in to access your GCMS account</p>
+            </div>
+
+            <div class="alert alert-danger" id="alertMessage"></div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="userRole">Login As</label>
+                    <select class="form-control" id="userRole" required>
+                        <option value="" selected disabled>Select your role</option>
+                        <option value="citizen">Citizen</option>
+                        <option value="case-worker">Case Worker</option>
+                        <option value="citizen-manager">Citizen Manager</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="password-field">
+                        <input type="password" class="form-control" id="password" placeholder="Enter your password"
+                            required>
+                        <button type="button" class="password-toggle" id="togglePassword">
+                            <i class="fas fa-eye-slash"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="loginBtn">
+                    <span id="buttonText">Sign In</span>
+                    <span class="spinner" id="spinner" style="display: none;">
+                        <i class="fas fa-circle-notch fa-spin"></i>
+                    </span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Consistent Footer with Landing.html -->
+    <footer>
+        <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+            <div style="margin-bottom: 1rem;">
+                <span style="font-size: 2rem; margin-right: 10px;">⚖️</span>
+                <span style="font-family: var(--heading-font); font-weight: 700; color: white;">GCMS Insights</span>
+            </div>
+            <p style="opacity: 0.8; margin-bottom: 1rem;">An innovative Government Case Management System developed by
+                passionate students to revolutionize citizen services.</p>
+            <div class="copyright">
+                <p>© 2025 GCMS Insights - NEIS School. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle - Same as Landing.html
+        const themeToggle = document.getElementById('theme-toggle-checkbox');
+
+        // Check for saved theme preference or use preferred color scheme
+        const currentTheme = localStorage.getItem('theme') ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+            themeToggle.checked = true;
+        }
+
+        // Theme toggle event listener
+        themeToggle.addEventListener('change', function () {
+            if (this.checked) {
+                document.body.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.classList.remove('dark-theme');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+                document.getElementById('loginForm').addEventListener('submit', async function(event) {
+                    event.preventDefault();
+
+                // Get form values
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const userRole = document.getElementById('userRole').value;
+                const alertMessage = document.getElementById('alertMessage');
+                const loginBtn = document.getElementById('loginBtn');
+                const buttonText = document.getElementById('buttonText');
+                const spinner = document.getElementById('spinner');
+
+                // Reset alert and show loading state
+                alertMessage.style.display = 'none';
+                buttonText.style.display = 'none';
+                spinner.style.display = 'inline-block';
+                loginBtn.disabled = true;
+
+                // Basic validation
+                if (!username || !password || !userRole || userRole === "") {
+                    showError('Please fill in all fields');
+                return;
+        }
+
+                try {
+            // API call to authenticate user
+            const response = await fetch('/api/login', {
+                    method: 'POST',
+                headers: {'Content-Type': 'application/json' },
+                body: JSON.stringify({username, password, role: userRole })
+            });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    showError(data.error || 'Invalid credentials');
+                return;
+            }
+
+                // Successful login - redirect based on role
+                const roleToPath = {
+                    'citizen': '/citizen-dashboard',
+                    'case-worker': '/assign-cases',
+                    'citizen-manager': '/citizen-management',
+            };
+
+                if (roleToPath[userRole]) {
+                    window.location.href = roleToPath[userRole];
+            } else {
+                    showError('No dashboard available for this role');
+            }
+            
+        } catch (error) {
+                    console.error('Login error:', error);
+                showError('Connection error. Please try again.');
+        } finally {
+                    // Reset loading state
+                    buttonText.style.display = 'inline-block';
+                spinner.style.display = 'none';
+                loginBtn.disabled = false;
+        }
+    });
+
+                function showError(message) {
+        const alertMessage = document.getElementById('alertMessage');
+                alertMessage.textContent = message;
+                alertMessage.style.display = 'block';
+
+                // Scroll to alert for better UX
+                alertMessage.scrollIntoView({behavior: 'smooth', block: 'center' });
+    }
+
+                // Password toggle functionality (already in your HTML but included for completeness)
+                document.getElementById('togglePassword').addEventListener('click', function() {
+                const password = document.getElementById('password');
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+
+                const icon = this.querySelector('i');
+                icon.classList.toggle('fa-eye');
+                icon.classList.toggle('fa-eye-slash');
+    });
+        
+    </script>
+</body>
+
+</html>

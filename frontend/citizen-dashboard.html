@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Dashboard - GCMS Insights</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <meta name="description"
+        content="Advanced Government Case and Citizen Management System developed by passionate students">
+    <link rel="icon" type="image/x-icon" href="court-icon.png">
+    <style>
+        :root {
+            /* Light Theme Colors */
+            --light-color-theme-50: #EBFFE8;
+            --light-color-theme-100: #eeefc3;
+            --light-color-theme-200: #d9dfa0;
+            --light-color-theme-300: #bdcf81;
+            --light-color-theme-400: #afbf65;
+            --light-color-theme-500: #aaaf4c;
+            --light-color-theme-600: #c3c317;
+            --light-color-theme-700: #858823;
+            --light-color-theme-800: #9fbc1d;
+            --light-color-theme-900: #5b6008;
+            --light-color-theme-950: #3f4d00;
+            --light-heading-font: 'Roboto', sans-serif;
+            --light-body-font: 'Lato', sans-serif;
+            --light-off-white: #f5e9d0;
+            --light-bg-color: #f9f9f9;
+            --light-text-color: #333;
+            --light-card-bg: white;
+            --light-header-bg: white;
+            --light-border-color: #eee;
+            --light-shadow-color: rgba(0, 0, 0, 0.1);
+            --light-dark-olive: #112f28;
+            --light-secondary: #8f7a4b;
+            --light-accent: #d8bd71;
+            --light-primary: #184138;
+            --light-lighter-primary: #00886d;
+            --light-darker-primary: #0b1b18;
+            --very-light-primary:#cfdcda;
+
+            /* Dark Theme Colors */
+            --dark-color-theme-50: #2a3a27;
+            --dark-color-theme-100: #3d4a2a;
+            --dark-color-theme-200: #4f5a2e;
+            --dark-color-theme-300: #6a7538;
+            --dark-color-theme-400: #8a9449;
+            --dark-color-theme-500: #a8b34d;
+            --dark-color-theme-600: #c3d04a;
+            --dark-color-theme-700: #d4e04a;
+            --dark-color-theme-800: #e0f04a;
+            --dark-color-theme-900: #e8ff4a;
+            --dark-color-theme-950: #f2ff6e;
+            --dark-dark-olive: #0c1f1a;
+            --dark-secondary: #a68a52;
+            --dark-accent: #e8d18a;
+            --dark-primary: #1d4a3f;
+            --dark-lighter-primary: #2d7a6a;
+            --dark-darker-primary: #081411;
+            --dark-off-white: #1a1a1a;
+            --dark-bg-color: #121212;
+            --dark-text-color: #e0e0e0;
+            --dark-card-bg: #1e1e1e;
+            --dark-header-bg: #1e1e1e;
+            --dark-border-color: #333;
+            --dark-shadow-color: rgba(0, 0, 0, 0.3);
+            --very-light-primary:#cfdcda;
+            --very-light-secondary:#ecdcac8c;
+
+            /* Current Theme Variables - Default to Light */
+            --heading-font: var(--light-heading-font);
+            --body-font: var(--light-body-font);
+            --off-white: var(--light-off-white);
+            --bg-color: var(--light-bg-color);
+            --text-color: var(--light-text-color);
+            --card-bg: var(--light-card-bg);
+            --header-bg: var(--light-header-bg);
+            --border-color: var(--light-border-color);
+            --shadow-color: var(--light-shadow-color);
+            --dark-olive: var(--light-dark-olive);
+            --secondary: var(--light-secondary);
+            --accent: var(--light-accent);
+            --primary: var(--light-primary);
+            --lighter-primary: var(--light-lighter-primary);
+            --darker-primary: var(--light-darker-primary);
+            --color-theme-50: var(--light-color-theme-50);
+            --color-theme-100: var(--light-color-theme-100);
+            --color-theme-200: var(--light-color-theme-200);
+            --color-theme-300: var(--light-color-theme-300);
+            --color-theme-400: var(--light-color-theme-400);
+            --color-theme-500: var(--light-color-theme-500);
+            --color-theme-600: var(--light-color-theme-600);
+            --color-theme-700: var(--light-color-theme-700);
+            --color-theme-800: var(--light-color-theme-800);
+            --color-theme-900: var(--light-color-theme-900);
+            --color-theme-950: var(--light-color-theme-950);
+        }
+
+        /* Dark Theme Class */
+        .dark-theme {
+            --heading-font: var(--dark-heading-font);
+            --body-font: var(--dark-body-font);
+            --off-white: var(--dark-off-white);
+            --bg-color: var(--dark-bg-color);
+            --text-color: var(--dark-text-color);
+            --card-bg: var(--dark-card-bg);
+            --header-bg: var(--dark-header-bg);
+            --border-color: var(--dark-border-color);
+            --shadow-color: var(--dark-shadow-color);
+            --dark-olive: var(--dark-dark-olive);
+            --secondary: var(--dark-secondary);
+            --accent: var(--dark-accent);
+            --primary: var(--dark-primary);
+            --lighter-primary: var(--dark-lighter-primary);
+            --darker-primary: var(--dark-darker-primary);
+            --color-theme-50: var(--dark-color-theme-50);
+            --color-theme-100: var(--dark-color-theme-100);
+            --color-theme-200: var(--dark-color-theme-200);
+            --color-theme-300: var(--dark-color-theme-300);
+            --color-theme-400: var(--dark-color-theme-400);
+            --color-theme-500: var(--dark-color-theme-500);
+            --color-theme-600: var(--dark-color-theme-600);
+            --color-theme-700: var(--dark-color-theme-700);
+            --color-theme-800: var(--dark-color-theme-800);
+            --color-theme-900: var(--dark-color-theme-900);
+            --color-theme-950: var(--dark-color-theme-950);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--body-font);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Header Styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: var(--header-bg);
+            box-shadow: 0 2px 10px var(--shadow-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            margin-right: 10px;
+            color: var(--color-theme-500);
+        }
+
+        .dashboard-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-family: var(--heading-font);
+            color: var(--lighter-primary);
+        }
+        body.dark-theme .dashboard-title{
+            color: var(--accent);
+            font-family: var(--heading-font);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-name {
+            text-align: right;
+        }
+
+        .name {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        body.dark-theme .name{
+            color: var(--accent) !important;
+        }
+
+        .role {
+            font-size: 14px;
+            color: var(--primary);
+        }
+        body.dark-theme .role{
+            color: var(--accent);
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            background-color: var(--lighter-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--darker-primary);
+            font-weight: bold;
+        }
+        body.dark-theme .profile-pic{
+            background-color: var(--accent);
+            color: var(--dark-secondary);
+        }
+
+        /* Theme Toggle Styles */
+        .theme-toggle {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: 1.5rem;
+            cursor: pointer;
+        }
+
+        .theme-toggle-checkbox {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .theme-toggle-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            cursor: pointer;
+            width: 50px;
+            height: 26px;
+            background: var(--lighter-primary);
+            border-radius: 50px;
+            padding: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .theme-toggle-label:hover {
+            background: var(--primary);
+        }
+
+        .theme-toggle-ball {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle-checkbox:checked+.theme-toggle-label .theme-toggle-ball {
+            transform: translateX(24px);
+        }
+
+        .theme-toggle-sun,
+        .theme-toggle-moon {
+            font-size: 14px;
+            color: white;
+        }
+
+        .theme-toggle-sun {
+            margin-right: 5px;
+        }
+
+        .theme-toggle-moon {
+            margin-left: 5px;
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            padding: 2rem 5%;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--shadow-color);
+        }
+
+        /* Profile Section */
+        .profile-section {
+            flex: 1;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            gap: 1rem;
+        }
+
+        .profile-icon {
+            color: var(--darker-primary);
+            font-size: 1.5rem;
+        }
+        
+        body.dark-theme .profile-icon{
+            color: var(--accent) !important;
+        }
+       
+
+        .profile-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-family: var(--heading-font);
+            color: var(--primary);
+        }
+        body.dark-theme .profile-title{
+            font-family: var(--heading-font);
+            color: var(--accent);
+        }
+
+        .avatar-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            background-color: var(--lighter-primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary);
+            font-size: 3rem;
+            font-weight: bold;
+            border: 3px solid var(--primary);
+            box-shadow: 0 5px 15px var(--darker-primary);
+        }
+        body.dark-theme .avatar{
+            background-color: var(--accent) !important;
+            border: 3px solid var(--light-secondary) !important;
+            box-shadow: 0 5px 15px transparent !important;
+            color: var(--secondary) !important;
+        }
+
+        .profile-info {
+            margin-bottom: 1.5rem;
+        }
+
+        .info-label {
+            font-size: 14px;
+            color: var(--lighter-primary);
+            margin-bottom: 0.5rem;
+        }
+        body.dark-theme .info-label{
+            color: var(--accent) !important;
+        }
+
+        .info-value {
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            font-size: 1.1rem;
+        }
+
+        .edit-profile-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--card-bg);
+            border: 2px solid var(--color-theme-500);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            color: var(--color-theme-500);
+            font-size: 1rem;
+        }
+
+        .edit-profile-btn:hover {
+            background-color: var(--color-theme-500);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(170, 175, 76, 0.3);
+        }
+
+        /* Cases Section */
+        .cases-section {
+            flex: 2;
+        }
+
+        .tab-header {
+            display: flex;
+            margin-bottom: 1.5rem;
+            background-color: transparent;
+            box-shadow: none;
+            padding: 0;
+        }
+
+        .tab {
+            padding: 0.8rem 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            transition: all 0.3s ease;
+            border-radius: 50px;
+            background-color: var(--card-bg);
+            margin-right: 0.5rem;
+            box-shadow: 0 2px 5px var(--shadow-color);
+            color: var(--text-color);
+        }
+
+        .tab.active {
+
+            color: var(--primary) ;
+            background-color: var(--lighter-primary);  
+            border-bottom: 3px solid var(--darker-primary); 
+        }
+
+        body.dark-theme .tab.active{
+            border-bottom: 3px solid var(--secondary) !important;
+            color: var(--dark-secondary) !important;
+            background-color: var(--accent) !important;
+        }
+
+        .tab:hover:not(.active) {
+            background-color: var(--very-light-primary);
+        }
+        body.dark-theme  .tab:hover:not(.active){
+            background-color: var(--very-light-secondary);
+        }
+
+        .tab-icon {
+            font-size: 1.2rem;
+        }
+
+        .cases-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .cases-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-family: var(--heading-font);
+            color: var(--lighter-primary);
+            margin-bottom: 0.5rem;
+        }
+        body.dark-theme .cases-title{
+            color: var(--accent);
+        }
+
+        .cases-subtitle {
+            color: black;
+            font-size: 1rem;
+        }
+        body.dark-theme .cases-subtitle{
+            color: white;
+        }
+
+        /* Case Items */
+        .case-item {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+            background-color: var(--card-bg);
+        }
+
+        .case-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--shadow-color);
+        }
+
+        .case-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            color: var(--lighter-primary);
+            font-family: var(--heading-font);
+        }
+        body.dark-theme .case-title{
+            color: var(--accent);
+        }
+        body.dark-theme .case-info{
+            color: var(--very-light-secondary) !important;
+        }
+
+        .case-description {
+            color: black;
+            margin-bottom: 1rem;
+        }
+        body.dark-theme .case-description{
+            color: white;
+        }
+
+
+        .case-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--primary) !important;
+        }
+
+        .case-status {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            background-color: var(--very-light-primary);
+            color: var(--lighter-primary);
+            border: 1px solid var(--primary);
+        }
+        body.dark-theme .status-pending{
+            background-color: var(--very-light-secondary);
+            color: var(--accent);
+            border: 1px solid var(--secondary);
+
+        } 
+
+        .status-active {
+            background-color: var(--very-light-primary);
+            color: var(--lighter-primary);
+            border: 1px solid var(--primary);
+        }
+        body.dark-theme .status-active {
+            background-color: var(--very-light-secondary);
+            color: var(--accent);
+            border: 1px solid var(--secondary);
+        }
+
+        .status-completed {
+            background-color: var(--very-light-primary);
+            color: var(--lighter-primary);
+            border: 1px solid var(--primary);
+        }
+        body.dark-theme .status-completed{
+            background-color: var(--very-light-secondary);
+            color: var(--accent);
+            border: 1px solid var(--secondary);
+        }
+
+        /* Buttons */
+        .request-case-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        body.dark-theme .request-case-btn{
+            background-color: var(--accent);
+        }
+
+        .request-case-btn:hover {
+            background-color: #184138;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(--primary);
+        }
+        body.dark-theme  .request-case-btn:hover{
+            background-color: var(--secondary);
+            box-shadow: 0 10px 20px rgba(--accent);
+        }
+
+        .chatbot-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--dark-secondary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+        }
+        body.dark-theme .chatbot-btn{
+            background-color: var(--lighter-primary);
+        }
+        body.dark-theme .chatbot-btn:hover{
+            background-color: var(--primary);
+        }
+
+        .chatbot-btn:hover {
+            background-color: var(--light-secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            width: 500px;
+            max-width: 90%;
+            box-shadow: 0 15px 30px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary);
+            font-family: var(--heading-font);
+        }
+        body.dark-theme .modal-title{
+            color: var(--accent);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: var(--color-theme-500);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--lighter-primary);
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-family: var(--body-font);
+            transition: all 0.3s ease;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--color-theme-500);
+            box-shadow: 0 0 0 3px rgba(170, 175, 76, 0.2);
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--lighter-primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-submit:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .profile-section,
+            .cases-section {
+                width: 100%;
+            }
+
+            .tab-header {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .user-info {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .dashboard-title {
+                font-size: 1.2rem;
+            }
+
+            .tab {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .case-info {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .profile-title,
+            .cases-title {
+                font-size: 1.3rem;
+            }
+
+            .avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 2.5rem;
+            }
+
+            .tab-header {
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                gap: 0.5rem;
+            }
+
+            .tab {
+                margin-right: 0;
+                flex-grow: 1;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+            }
+        }
+        .demo-alert {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ff6b6b;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            font-size: 18px;
+            z-index: 9999;
+            cursor: default;
+            animation: pulse 2s infinite, float 3s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-alert:hover {
+            background-color: #ff5252;
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateX(-50%) translateY(0px); }
+            50% { transform: translateX(-50%) translateY(-5px); }
+            100% { transform: translateX(-50%) translateY(0px); }
+        }
+        
+        .close-btn {
+            display: inline-block;
+            margin-left: 15px;
+            background: rgba(255, 255, 255, 0.3);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: rotate(90deg);
+        }
+
+        /* Dark mode specific adjustments */
+        .dark-theme .demo-alert {
+            background-color: #d32f2f;
+        }
+
+        .dark-theme .demo-alert:hover {
+            background-color: #b71c1c;
+        }
+
+        .dark-theme .close-btn {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .dark-theme .close-btn:hover {
+            background: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="demo-alert" id="demoAlert">
+        This Page is not Completely Functioning
+        <span class="close-btn" id="closeBtn">×</span>
+    </div>
+
+    <header class="header">
+        <div class="logo-container">
+            <div class="logo">
+                <span style="font-size: 2rem; margin-right: 10px;">⚖️</span>
+            </div>
+            <div class="dashboard-title">GCMS Citizen Dashboard</div>
+        </div>
+        <div class="user-info">
+            <div class="theme-toggle">
+                <input type="checkbox" id="theme-toggle-checkbox" class="theme-toggle-checkbox">
+                <label for="theme-toggle-checkbox" class="theme-toggle-label">
+                    <span class="theme-toggle-sun">
+                        <i class="fas fa-sun"></i>
+                    </span>
+                    <span class="theme-toggle-moon">
+                        <i class="fas fa-moon"></i>
+                    </span>
+                    <span class="theme-toggle-ball"></span>
+                </label>
+            </div>
+            <div class="user-name">
+                <div class="name">John Citizen</div>
+                <div class="role">Citizen</div>
+            </div>
+            <div class="profile-pic">J</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="profile-section">
+            <div class="card">
+                <div class="profile-header">
+                    <div class="profile-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="profile-title">Profile Information</div>
+                </div>
+
+                <div class="avatar-container">
+                    <div class="avatar">J</div>
+                </div>
+
+                <div class="profile-info">
+                    <div class="info-label">Full Name</div>
+                    <div class="info-value">John Citizen</div>
+                </div>
+
+                <div class="profile-info">
+                    <div class="info-label">Email</div>
+                    <div class="info-value">citizen@example.com</div>
+                </div>
+
+                <div class="profile-info">
+                    <div class="info-label">National ID</div>
+                    <div class="info-value">CIT-CITIZEN@</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cases-section">
+            <div class="tab-header">
+                <div class="tab active" id="myCasesTab">
+                    <div class="tab-icon">
+                        <i class="fas fa-folder-open"></i>
+                    </div>
+                    My Cases
+                </div>
+                <div class="tab" id="familyMembersTab">
+                    <div class="tab-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    Family Members
+                </div>
+            </div>
+
+            <div class="card" id="myCasesContent">
+                <div class="cases-header">
+                    <div class="cases-title">My Cases</div>
+                    <div class="cases-subtitle">View and manage your government cases</div>
+                </div>
+
+                <div class="case-item">
+                    <div class="case-status status-pending">Pending</div>
+                    <div class="case-title">Property Tax Dispute</div>
+                    <div class="case-description">Dispute regarding property tax assessment for fiscal year 2023.</div>
+                    <div class="case-info">
+                        <div>Case ID: CASE-001</div>
+                        <div>Created: Jun 15, 2023</div>
+                    </div>
+                </div>
+
+                <div class="case-item">
+                    <div class="case-status status-active">Active</div>
+                    <div class="case-title">Business License Renewal</div>
+                    <div class="case-description">Application for renewal of business operating license.</div>
+                    <div class="case-info">
+                        <div>Case ID: CASE-002</div>
+                        <div>Created: May 28, 2023</div>
+                    </div>
+                </div>
+
+                <div class="case-item">
+                    <div class="case-status status-completed">Completed</div>
+                    <div class="case-title">Building Permit Request</div>
+                    <div class="case-description">Request for permit to build a deck extension.</div>
+                    <div class="case-info">
+                        <div>Case ID: CASE-003</div>
+                        <div>Created: Apr 10, 2023</div>
+                    </div>
+                </div>
+
+                <button class="request-case-btn" id="requestCaseBtn">
+                    <i class="fas fa-plus-circle"></i> Request New Case
+                </button>
+                <a href="Chatbot.html" class="chatbot-btn" id="chatbotBtn">
+                    <i class="fas fa-robot"></i> Ask AI Assistant
+                </a>
+            </div>
+
+            <div class="card" id="familyMembersContent" style="display: none;">
+                <div class="cases-header">
+                    <div class="cases-title">Family Members</div>
+                    <div class="cases-subtitle">See family members connected to your account</div>
+                </div>
+
+                <div class="case-item">
+                    <div class="case-title">No family members added</div>
+                    <div class="case-description">You haven't added any family members to your account yet.</div>
+                    <button class="request-case-btn" style="margin-top: 1rem;">
+                        <i class="fas fa-user-plus"></i> Add Family Member
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Request Case Modal -->
+    <div class="modal" id="requestCaseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Request New Case</div>
+                <button class="close-btn" id="closeModalBtn">&times;</button>
+            </div>
+
+            <form id="caseRequestForm">
+                <div class="form-group">
+                    <label for="caseTitle" class="form-label">Case Title</label>
+                    <input type="text" id="caseTitle" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="caseType" class="form-label">Case Type</label>
+                    <select id="caseType" class="form-select" required>
+                        <option value="">Select case type</option>
+                        <option value="tax">Tax Dispute</option>
+                        <option value="license">License Application</option>
+                        <option value="permit">Building Permit</option>
+                        <option value="appeal">Appeal</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="caseDescription" class="form-label">Description</label>
+                    <textarea id="caseDescription" class="form-textarea" required></textarea>
+                </div>
+
+                <button type="submit" class="form-submit">Submit Request</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('theme-toggle-checkbox');
+        const currentTheme = localStorage.getItem('theme') ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+            themeToggle.checked = true;
+        }
+
+        themeToggle.addEventListener('change', function () {
+            if (this.checked) {
+                document.body.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.classList.remove('dark-theme');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Tab Switching
+        const myCasesTab = document.getElementById('myCasesTab');
+        const familyMembersTab = document.getElementById('familyMembersTab');
+        const myCasesContent = document.getElementById('myCasesContent');
+        const familyMembersContent = document.getElementById('familyMembersContent');
+
+        myCasesTab.addEventListener('click', () => {
+            myCasesTab.classList.add('active');
+            familyMembersTab.classList.remove('active');
+            myCasesContent.style.display = 'block';
+            familyMembersContent.style.display = 'none';
+        });
+
+        familyMembersTab.addEventListener('click', () => {
+            familyMembersTab.classList.add('active');
+            myCasesTab.classList.remove('active');
+            familyMembersContent.style.display = 'block';
+            myCasesContent.style.display = 'none';
+        });
+
+        // Modal Handling
+        const requestCaseBtn = document.getElementById('requestCaseBtn');
+        const requestCaseModal = document.getElementById('requestCaseModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const caseRequestForm = document.getElementById('caseRequestForm');
+
+        requestCaseBtn.addEventListener('click', () => {
+            requestCaseModal.style.display = 'flex';
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            requestCaseModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === requestCaseModal) {
+                requestCaseModal.style.display = 'none';
+            }
+        });
+
+        caseRequestForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Your case request has been submitted successfully!');
+            requestCaseModal.style.display = 'none';
+            caseRequestForm.reset();
+        });
+
+        // Add animation to cards on scroll
+        function animateCards() {
+            const cards = document.querySelectorAll('.card, .case-item');
+
+            cards.forEach((card, index) => {
+                const cardPosition = card.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+
+                if (cardPosition < screenPosition) {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        // Initialize card animations
+        document.querySelectorAll('.card, .case-item').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        });
+
+        // Show the demo alert on page load
+            document.addEventListener('DOMContentLoaded', function () {
+                const alertElement = document.getElementById('demoAlert');
+                const closeBtn = document.getElementById('closeBtn');
+
+                // Close button functionality
+                closeBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    alertElement.style.transform = 'translateX(-50%) scale(0)';
+                    alertElement.style.opacity = '0';
+                    setTimeout(() => {
+                        alertElement.style.display = 'none';
+                    }, 300);
+                });
+
+                // Make it bounce when clicked
+                alertElement.addEventListener('click', function (e) {
+                    if (e.target === closeBtn) return;
+
+                    alertElement.style.transform = 'translateX(-50%) scale(0.95)';
+                    setTimeout(() => {
+                        alertElement.style.transform = 'translateX(-50%) scale(1)';
+                    }, 100);
+                });
+            });
+        
+        window.addEventListener('load', animateCards);
+        window.addEventListener('scroll', animateCards);
+    </script>
+</body>
+
+</html>

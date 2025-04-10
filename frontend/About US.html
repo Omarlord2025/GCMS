@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About GCMS - Heroes Aren't Born, They Are Made</title>
+    <link rel="icon" type="image/x-icon" href="court-icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <meta name="description"
+        content="Advanced Government Case and Citizen Management System developed by passionate students">
+    <link rel="icon" type="image/x-icon" href="court-icon.png">
+    <style>
+        :root {
+            --dark-olive: #112f28;
+            --secondary: #8f7a4b;
+            --accent: #d8bd71;
+            --primary: #184138;
+            --off-white: #f5e9d0;
+            --lighter-primary: #276659;
+            --heading-font: 'Roboto', sans-serif;
+            --body-font: 'Lato', sans-serif;
+            --grey-700: #2d2d2d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            line-height: 1.6;
+            color: var(--dark-olive);
+            background-color: #f9f9f9;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles - Consistent with Landing.html */
+        header#main-header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 99%;
+            margin-left: 0.5rem;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-radius: 40px;
+            margin-top: 1rem;
+        }
+        body.dark-theme header#main-header{
+            background-color: var(--grey-700) !important;
+        }
+
+        .header-scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            border-radius: 40px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-family: var(--heading-font);
+            font-size: 1.5rem;
+            color: var(--lighter-primary);
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--dark-olive); /* Changed from --dark-olive to --primary */
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            position: relative;
+            text-decoration: none !important;
+        }
+        body.dark-theme .nav-links a{
+            color: var(--off-white) !important ;
+            text-decoration: none !important;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-olive);
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding: 120px 0 60px;
+            margin-bottom: 30px;
+            background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05));
+        }
+
+        .page-header h1 {
+            color: #276659;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-family: var(--heading-font);
+            position: relative;
+            display: inline-block;
+        }
+
+        .page-header h1:after {
+            content: "";
+            position: absolute;
+            left: 25%;
+            right: 25%;
+            bottom: -10px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Section Styles - Consistent with Landing.html */
+        .section {
+            margin: 60px 0;
+            opacity: 0;
+            transition: all 1s ease;
+        }
+
+        .section.active {
+            opacity: 1;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: white;
+            padding: 35px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            border-top: 5px solid var(--secondary);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 20px;
+            font-family: var(--heading-font);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2::after {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: var(--secondary);
+            bottom: 0;
+            left: 0;
+        }
+
+        /* Team Grid - Updated to match Landing.html team section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 30px;
+        }
+
+        .team-member {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .member-image {
+            height: 200px;
+            background-color: var(--off-white);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .member-initial {
+            font-size: 5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+
+        .member-info {
+            padding: 1.5rem;
+        }
+
+        .member-info h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-family: var(--heading-font);
+        }
+
+        .member-info p {
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        .member-social {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .member-social a {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .member-social a:hover {
+            color: var(--primary);
+        }
+
+        /* Tech Categories - Updated to match Landing.html */
+        .tech-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 30px;
+        }
+
+        .tech-category {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            border-top: 3px solid var(--secondary);
+        }
+
+        .tech-category:hover {
+            transform: translateY(-5px);
+        }
+
+        .tech-category h3 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-family: var(--heading-font);
+            display: flex;
+            align-items: center;
+        }
+
+        .tech-category h3 i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        li:before {
+            content: "→";
+            color: var(--secondary);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Timeline - Updated style */
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+            padding-left: 30px;
+        }
+
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: var(--secondary);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--secondary);
+            border: 3px solid white;
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: var(--lighter-primary);
+            margin-bottom: 10px;
+        }
+
+        /* CTA Section - Matches Landing.html buttons */
+        .cta-section {
+            text-align: center;
+            padding: 50px 0;
+            margin-top: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--lighter-primary));
+            border-radius: 10px;
+            color: white;
+        }
+
+        .cta-section h2 {
+            color: white;
+            border-bottom: none;
+        }
+
+        .cta-section h2::after {
+            background-color: white;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: white;
+            color: var(--primary);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin-top: 3rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer - Matches Landing.html */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .copyright {
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* Theme Toggle Styles - Same as Landing.html */
+        .theme-toggle {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle-checkbox {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .theme-toggle-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            cursor: pointer;
+            width: 50px;
+            height: 26px;
+            background: var(--accent);
+            border-radius: 50px;
+            padding: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .theme-toggle-label:hover {
+            background: var(--secondary);
+        }
+
+        .theme-toggle-ball {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle-checkbox:checked+.theme-toggle-label .theme-toggle-ball {
+            transform: translateX(24px);
+        }
+
+        .theme-toggle-sun,
+        .theme-toggle-moon {
+            font-size: 14px;
+            color: white;
+        }
+
+        .theme-toggle-sun {
+            margin-right: 5px;
+        }
+
+        .theme-toggle-moon {
+            margin-left: 5px;
+        }
+
+        /* Dark Theme - Matches Landing.html */
+        body.dark-theme {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        body.dark-theme header {
+            background-color: #1e1e1e;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-theme .header-scrolled {
+            background-color: rgba(30, 30, 30, 0.95);
+        }
+
+        body.dark-theme .nav-links a {
+            color: #e0e0e0;
+        }
+
+        body.dark-theme .card,
+        body.dark-theme .team-member,
+        body.dark-theme .tech-category {
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-theme h2,
+        body.dark-theme .member-info h3,
+        body.dark-theme .tech-category h3 {
+            color: var(--accent);
+        }
+
+        body.dark-theme .member-info p {
+            color: #b0b0b0;
+        }
+
+        body.dark-theme li:before {
+            color: var(--accent);
+        }
+
+        body.dark-theme .cta-section {
+            background: linear-gradient(135deg, var(--dark-olive), var(--primary));
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.5s ease;
+            }
+
+            body.dark-theme .nav-links {
+                background-color: #1e1e1e;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .page-header {
+                padding: 100px 0 40px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* Back to Top Button - Inheriting Theme Colors */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 999;
+            border-radius: 50%;
+            
+            /* Inherit from theme variables */
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            border: 2px solid transparent;
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+            animation: subtle-pulse 2s infinite;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px) scale(1.05);
+            background-color: var(--lighter-primary);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .back-to-top:active {
+            transform: translateY(-2px) scale(0.95);
+            transition: all 0.1s;
+        }
+
+        .back-to-top .fas {
+            transition: transform 0.3s ease;
+        }
+
+        .back-to-top:hover .fas {
+            transform: translateY(-3px);
+        }
+
+        /* Subtle pulse animation using existing theme colors */
+        @keyframes subtle-pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(24, 65, 56, 0.6);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(24, 65, 56, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(24, 65, 56, 0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .back-to-top {
+                bottom: 15px;
+                right: 15px;
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* For reduced motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            .back-to-top {
+                transition: opacity 0.3s ease;
+            }
+            
+            .back-to-top.active {
+                animation: none;
+            }
+            
+            .back-to-top:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Consistent Header with Landing.html -->
+    <header id="main-header">
+        <nav class="navbar">
+            <div class="logo">
+                <a href="Landing.html" style="text-decoration:none !important;">
+                    <span style="font-size: 2rem; margin-right: 10px;  ">⚖️</span>
+                </a>
+                <h1>GCMS Insights</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="Landing.html#home">Home</a></li>
+                <li><a href="Landing.html#story">Our Story</a></li>
+                <li><a href="Landing.html#features">Features</a></li>
+                <li><a href="Landing.html#architecture">Technology</a></li>
+                <li><a href="Landing.html#team">Our Team</a></li>
+                <li><a href="Landing.html#contact">Contact</a></li>
+            </ul>
+
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <!-- Theme toggle -->
+            <div class="theme-toggle">
+                <input type="checkbox" id="theme-toggle-checkbox" class="theme-toggle-checkbox">
+                <label for="theme-toggle-checkbox" class="theme-toggle-label">
+                    <span class="theme-toggle-sun">
+                        <i class="fas fa-sun"></i>
+                    </span>
+                    <span class="theme-toggle-moon">
+                        <i class="fas fa-moon"></i>
+                    </span>
+                    <span class="theme-toggle-ball"></span>
+                </label>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Content -->
+    <div class="page-header">
+        <h1>Heroes Aren't Born, They Are Made</h1>
+        <p>A team of innovative middle school students building the future of government case management solutions through
+            AI and technology</p>
+    </div>
+
+    <div class="container">
+        <section class="section" id="intro-section">
+            <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+                <div class="card" style="flex: 1; min-width: 300px;">
+                    <h2><i class="fas fa-users"></i> Our Team</h2>
+                    <p>We are a dynamic team of six high school innovators from NEIS School with a shared passion for
+                        leveraging technology to solve real-world challenges. Founded in early 2025, our team brings
+                        together diverse skills in programming, design, and project management.</p>
+                    <p>Our mission is to revolutionize government services through innovative solutions that empower
+                        citizens and streamline administrative processes. We believe that technology should serve
+                        people, not the other way around.</p>
+                </div>
+
+                <div class="card" style="flex: 1; min-width: 300px;">
+                    <h2><i class="fas fa-project-diagram"></i> GCMS System</h2>
+                    <p>The Government Citizens & Case Management System (GCMS) is our flagship project designed to
+                        transform how government agencies interact with citizens and manage cases.</p>
+                    <ul>
+                        <li><strong>Case Tracking & Management:</strong> End-to-end solution for case lifecycle</li>
+                        <li><strong>Citizen Profile Management:</strong> Secure citizen data handling</li>
+                        <li><strong>AI-Powered Legal Chatbot:</strong> 24/7 assistance with legal inquiries</li>
+                        <li><strong>Multi-Language Support:</strong> Accessibility for diverse populations</li>
+                        <li><strong>Secure Authentication:</strong> Enterprise-grade security protocols</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="team-section">
+            <div class="card">
+                <h2><i class="fas fa-star"></i> Meet Our Team</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <div class="member-initial">J</div>
+                        </div>
+                        <div class="member-info">
+                            <h3>Jane Doe</h3>
+                            <p>Lead Developer & AI Specialist</p>
+                            <p>Jane leads our development efforts with expertise in machine learning and backend
+                                systems.</p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-github"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image">
+                            <div class="member-initial">J</div>
+                        </div>
+                        <div class="member-info">
+                            <h3>John Smith</h3>
+                            <p>UX/UI Designer</p>
+                            <p>John creates intuitive interfaces that make complex systems accessible to all users.</p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-dribbble"></i></a>
+                                <a href="#"><i class="fab fa-behance"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image">
+                            <div class="member-initial">E</div>
+                        </div>
+                        <div class="member-info">
+                            <h3>Emily Brown</h3>
+                            <p>Project Manager</p>
+                            <p>Emily ensures smooth project execution through strategic planning and team coordination.
+                            </p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fas fa-globe"></i></a>
+                                <a href="#"><i class="fab fa-medium"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image">
+                            <div class="member-initial">M</div>
+                        </div>
+                        <div class="member-info">
+                            <h3>Michael Chen</h3>
+                            <p>Backend Developer</p>
+                            <p>Michael architects robust database solutions and secure API endpoints.</p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-github"></i></a>
+                                <a href="#"><i class="fab fa-stack-overflow"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image">
+                            <div class="member-initial">S</div>
+                        </div>
+                        <div class="member-info">
+                            <h3>Sarah Johnson</h3>
+                            <p>AI/ML Engineer</p>
+                            <p>Sarah develops our intelligent chatbot and natural language processing systems.</p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fas fa-graduation-cap"></i></a>
+                                <a href="#"><i class="fab fa-researchgate"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="member-image">
+                            <div class="member-initial">A</div>
+                        </div>
+                        <div class="member-info">
+                            <h3>Alex Rivera</h3>
+                            <p>Security Specialist</p>
+                            <p>Alex ensures our systems meet the highest security standards for government applications.
+                            </p>
+                            <div class="member-social">
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fas fa-lock"></i></a>
+                                <a href="#"><i class="fab fa-keycdn"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="tech-section">
+            <div class="card">
+                <h2><i class="fas fa-laptop-code"></i> Technologies</h2>
+                <p>Our solution leverages cutting-edge technologies to deliver a robust, scalable, and secure platform:
+                </p>
+                <div class="tech-categories">
+                    <div class="tech-category">
+                        <h3><i class="fas fa-code"></i> Languages</h3>
+                        <ul>
+                            <li>Python for AI/ML chatbot development</li>
+                            <li>JavaScript for dynamic frontend & backend</li>
+                            <li>HTML5/CSS3 for responsive interfaces</li>
+                            <li>SQL for database operations</li>
+                        </ul>
+                    </div>
+                    <div class="tech-category">
+                        <h3><i class="fas fa-layer-group"></i> Frameworks</h3>
+                        <ul>
+                            <li>TensorFlow for machine learning models</li>
+                            <li>Node.js for scalable server operations</li>
+                            <li>FastAPI for high-performance Python APIs</li>
+                            <li>React for interactive user interfaces</li>
+                        </ul>
+                    </div>
+                    <div class="tech-category">
+                        <h3><i class="fas fa-cogs"></i> Key Features</h3>
+                        <ul>
+                            <li>CRUD Operations for case management</li>
+                            <li>Role-Based Access Control</li>
+                            <li>Intelligent Document Processing</li>
+                            <li>Real-time Notifications & Updates</li>
+                            <li>Automated Workflow Management</li>
+                        </ul>
+                    </div>
+                    <div class="tech-category">
+                        <h3><i class="fas fa-lock"></i> Security</h3>
+                        <ul>
+                            <li>End-to-end encryption</li>
+                            <li>OAuth2 authentication</li>
+                            <li>JWT for secure API access</li>
+                            <li>Compliance with government security standards</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="timeline-section">
+            <div class="card">
+                <h2><i class="fas fa-history"></i> Project Timeline</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">January 2025</div>
+                        <div class="timeline-content">
+                            <h3>Project Inception</h3>
+                            <p>Team formation and initial concept development</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">February 2025</div>
+                        <div class="timeline-content">
+                            <h3>Research & Requirements</h3>
+                            <p>Government agency interviews and system requirements gathering</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">March 2025</div>
+                        <div class="timeline-content">
+                            <h3>Design Phase</h3>
+                            <p>UX/UI design and system architecture planning</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">April 2025</div>
+                        <div class="timeline-content">
+                            <h3>Development Launch</h3>
+                            <p>Core development of GCMS system begins</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">June 2025 (Projected)</div>
+                        <div class="timeline-content">
+                            <h3>Beta Testing</h3>
+                            <p>Initial system testing with select government partners</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">September 2025 (Projected)</div>
+                        <div class="timeline-content">
+                            <h3>Full Launch</h3>
+                            <p>Official release of GCMS system</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="cta-section">
+            <div class="cta-section">
+                <h2>Join Our Mission</h2>
+                <p>We're looking for partners, mentors, and government agencies interested in early adoption of our
+                    revolutionary GCMS system.</p>
+                <a href="Landing.html#contact" class="cta-button">Contact Us</a>
+            </div>
+        </section>
+    </div>
+
+    <!-- Consistent Footer with Landing.html -->
+    <footer>
+        <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+            <div style="margin-bottom: 1.5rem;">
+                <span style="font-size: 2rem; margin-right: 10px;">⚖️</span>
+                <span style="font-family: var(--heading-font); font-weight: 700; color: white;">GCMS Insights</span>
+            </div>
+            <p style="opacity: 0.8; margin-bottom: 1.5rem;">An innovative Government Case Management System developed by
+                passionate students to revolutionize citizen services.</p>
+            <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem;">
+                <a href="#" style="color: white; font-size: 1.2rem;"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" style="color: white; font-size: 1.2rem;"><i class="fab fa-twitter"></i></a>
+                <a href="#" style="color: white; font-size: 1.2rem;"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" style="color: white; font-size: 1.2rem;"><i class="fab fa-github"></i></a>
+            </div>
+            <div class="copyright">
+                <p>© 2025 GCMS Insights - NEIS School. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle - Same as Landing.html
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ?
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Header scroll effect - Same as Landing.html
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('main-header');
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+
+        // Back to top button - Same as Landing.html
+        const backToTopBtn = document.querySelector('.back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('active');
+            } else {
+                backToTopBtn.classList.remove('active');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Scroll animations
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.section');
+
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+
+                if (elementPosition < screenPosition) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        // Run once on page load
+        animateOnScroll();
+
+        // Run on scroll
+        window.addEventListener('scroll', animateOnScroll);
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Theme Toggle - Same as Landing.html
+        const themeToggle = document.getElementById('theme-toggle-checkbox');
+
+        // Check for saved theme preference or use preferred color scheme
+        const currentTheme = localStorage.getItem('theme') ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+            themeToggle.checked = true;
+        }
+
+        // Theme toggle event listener
+        themeToggle.addEventListener('change', function () {
+            if (this.checked) {
+                document.body.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.classList.remove('dark-theme');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Manager Profile - GCMS Insights</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+        <link rel="icon" type="image/x-icon" href="court-icon.png">
+
+    <style>
+        :root {
+            --dark-olive: #112f28;
+            --secondary: #8f7a4b;
+            --accent: #d8bd71;
+            --primary: #184138;
+            --off-white: #f5e9d0;
+            --lighter-primary: #276659;
+            --heading-font: 'Roboto', sans-serif;
+            --body-font: 'Lato', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            background-color: #f9f9f9;
+            color: var(--dark-olive);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-theme {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        .header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header h1 {
+            font-family: var(--heading-font);
+            font-size: 1.5rem;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .language-selector {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .globe-icon {
+            margin-right: 5px;
+        }
+
+        .theme-toggle {
+            position: relative;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .theme-toggle-checkbox {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .theme-toggle-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            cursor: pointer;
+            width: 50px;
+            height: 26px;
+            background: var(--accent);
+            border-radius: 50px;
+            padding: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .theme-toggle-label:hover {
+            background: var(--secondary);
+        }
+
+        .theme-toggle-ball {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle-checkbox:checked+.theme-toggle-label .theme-toggle-ball {
+            transform: translateX(24px);
+        }
+
+        .theme-toggle-sun,
+        .theme-toggle-moon {
+            font-size: 14px;
+            color: white;
+        }
+
+        .theme-toggle-sun {
+            margin-right: 5px;
+        }
+
+        .theme-toggle-moon {
+            margin-left: 5px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--secondary);
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+            margin-right: 5px;
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .breadcrumb a {
+            color: var(--accent);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--lighter-primary);
+        }
+
+        body.dark-theme .breadcrumb a:hover {
+            color: var(--secondary);
+        }
+
+        .breadcrumb span {
+            margin: 0 5px;
+            color: var(--secondary);
+        }
+
+        .case-header {
+            background-color: white;
+            border-radius: 8px 8px 0 0;
+            padding: 25px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        body.dark-theme .case-header {
+            background-color: #2d2d2d;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .case-title-section {
+            flex: 1;
+        }
+
+        .case-id {
+            color: var(--secondary);
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .case-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .case-title {
+            color: var(--accent);
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            width: fit-content;
+        }
+
+        .status-pending {
+            background-color: #fef8e3;
+            color: #927b18;
+        }
+
+        body.dark-theme .status-pending {
+            background-color: #3a3400;
+            color: #f5e18e;
+        }
+
+        .status-active {
+            background-color: #e6f6ec;
+            color: var(--primary);
+        }
+
+        body.dark-theme .status-active {
+            background-color: #003d1a;
+            color: #5ae090;
+        }
+
+        .status-completed {
+            background-color: #e5f1fd;
+            color: #236fb3;
+        }
+
+        body.dark-theme .status-completed {
+            background-color: #002b4e;
+            color: #6eb8f5;
+        }
+
+        .status-rejected {
+            background-color: #fde7e7;
+            color: #bd2525;
+        }
+
+        body.dark-theme .status-rejected {
+            background-color: #4a0000;
+            color: #ff6b6b;
+        }
+
+        .status-icon {
+            margin-right: 5px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--lighter-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        body.dark-theme .btn-secondary {
+            background-color: #3d3d3d;
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--off-white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-theme .btn-secondary:hover {
+            background-color: #4d4d4d;
+        }
+
+        .btn-danger {
+            background-color: #fce7e7;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        body.dark-theme .btn-danger {
+            background-color: #4a0000;
+            color: #ff6b6b;
+            border-color: #7a0000;
+        }
+
+        .btn-danger:hover {
+            background-color: #fecaca;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-theme .btn-danger:hover {
+            background-color: #5a0000;
+        }
+
+        .btn-icon {
+            margin-right: 8px;
+        }
+
+        .case-content {
+            background-color: white;
+            border-radius: 0 0 8px 8px;
+            padding: 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        body.dark-theme .case-content {
+            background-color: #2d2d2d;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .tab-header {
+            display: flex;
+            border-bottom: 1px solid var(--secondary);
+            transition: border-color 0.3s;
+        }
+
+        body.dark-theme .tab-header {
+            border-color: #555;
+        }
+
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--secondary);
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        body.dark-theme .tab {
+            color: #aaa;
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        body.dark-theme .tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .tab-content {
+            padding: 25px;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        .info-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .section-title {
+            color: var(--accent);
+        }
+
+        .section-icon {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            margin-bottom: 15px;
+        }
+
+        .info-label {
+            font-size: 14px;
+            color: var(--secondary);
+            margin-bottom: 5px;
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .info-label {
+            color: #aaa;
+        }
+
+        .info-value {
+            font-size: 16px;
+            color: var(--dark-olive);
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .info-value {
+            color: #e0e0e0;
+        }
+
+        .description-box {
+            background-color: var(--off-white);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+
+        body.dark-theme .description-box {
+            background-color: #3d3d3d;
+        }
+
+        .description-text {
+            line-height: 1.6;
+            color: var(--dark-olive);
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .description-text {
+            color: #e0e0e0;
+        }
+
+        .activity-timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 9px;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: var(--secondary);
+            transition: background-color 0.3s;
+        }
+
+        body.dark-theme .timeline-line {
+            background-color: #555;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -30px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        body.dark-theme .timeline-dot {
+            background-color: #555;
+        }
+
+        .timeline-dot.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        body.dark-theme .timeline-dot.active {
+            background-color: var(--accent);
+        }
+
+        .timeline-date {
+            font-size: 14px;
+            color: var(--secondary);
+            margin-bottom: 5px;
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .timeline-date {
+            color: #aaa;
+        }
+
+        .timeline-content {
+            background-color: var(--off-white);
+            padding: 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        body.dark-theme .timeline-content {
+            background-color: #3d3d3d;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 5px;
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .timeline-title {
+            color: #e0e0e0;
+        }
+
+        .timeline-text {
+            color: var(--secondary);
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .timeline-text {
+            color: #aaa;
+        }
+
+        .notes-section {
+            margin-bottom: 20px;
+        }
+
+        .note-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: var(--off-white);
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        body.dark-theme .note-item {
+            background-color: #3d3d3d;
+        }
+
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .note-author {
+            font-weight: 500;
+            color: var(--primary);
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .note-author {
+            color: #e0e0e0;
+        }
+
+        .note-date {
+            font-size: 14px;
+            color: var(--secondary);
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .note-date {
+            color: #aaa;
+        }
+
+        .note-text {
+            color: var(--secondary);
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .note-text {
+            color: #aaa;
+        }
+
+        .add-note-form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--secondary);
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .form-label {
+            color: #aaa;
+        }
+
+        .form-textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--secondary);
+            border-radius: 5px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 100px;
+            background-color: white;
+            color: var(--dark-olive);
+            transition: all 0.3s;
+        }
+
+        body.dark-theme .form-textarea {
+            background-color: #3d3d3d;
+            border-color: #555;
+            color: #e0e0e0;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--secondary);
+            border-radius: 5px;
+            font-family: inherit;
+            background-color: white;
+            color: var(--dark-olive);
+            transition: all 0.3s;
+        }
+
+        body.dark-theme .form-select {
+            background-color: #3d3d3d;
+            border-color: #555;
+            color: #e0e0e0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 500px;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+
+        body.dark-theme .modal-content {
+            background-color: #2d2d2d;
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: border-color 0.3s;
+        }
+
+        body.dark-theme .modal-header {
+            border-color: #555;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary);
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .modal-title {
+            color: #e0e0e0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--primary);
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .close-btn {
+            color: var(--accent);
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid var(--secondary);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            transition: border-color 0.3s;
+        }
+
+        body.dark-theme .modal-footer {
+            border-color: #555;
+        }
+
+        .file-upload {
+            margin-bottom: 15px;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--secondary);
+            border-radius: 5px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        body.dark-theme .upload-area {
+            border-color: #555;
+        }
+
+        .upload-icon {
+            font-size: 30px;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .upload-icon {
+            color: #aaa;
+        }
+
+        .upload-text {
+            color: var(--secondary);
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .upload-text {
+            color: #aaa;
+        }
+
+        .documents-list {
+            list-style: none;
+        }
+
+        .document-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--secondary);
+            transition: border-color 0.3s;
+        }
+
+        body.dark-theme .document-item {
+            border-color: #555;
+        }
+
+        .document-icon {
+            margin-right: 10px;
+            color: var(--secondary);
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .document-icon {
+            color: #aaa;
+        }
+
+        .document-details {
+            flex: 1;
+        }
+
+        .document-name {
+            font-weight: 500;
+            color: var(--primary);
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .document-name {
+            color: #e0e0e0;
+        }
+
+        .document-info {
+            font-size: 12px;
+            color: var(--secondary);
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .document-info {
+            color: #aaa;
+        }
+
+        .document-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .document-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--secondary);
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .document-button {
+            color: #aaa;
+        }
+
+        .document-button:hover {
+            color: var(--primary);
+        }
+
+        body.dark-theme .document-button:hover {
+            color: var(--accent);
+        }
+
+        .manager-actions {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: var(--off-white);
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        body.dark-theme .manager-actions {
+            background-color: #3d3d3d;
+        }
+
+        .action-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 15px;
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .action-title {
+            color: var(--accent);
+        }
+
+        .action-buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .action-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid var(--secondary);
+        }
+
+        body.dark-theme .action-button {
+            background-color: #2d2d2d;
+            border-color: #555;
+        }
+
+        .action-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        body.dark-theme .action-button:hover {
+            border-color: var(--accent);
+        }
+
+        .action-icon {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .action-icon {
+            color: var(--accent);
+        }
+
+        .action-label {
+            font-weight: 500;
+            color: var(--primary);
+            transition: color 0.3s;
+        }
+
+        body.dark-theme .action-label {
+            color: #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            .case-header {
+                flex-direction: column;
+            }
+
+            .action-buttons {
+                margin-top: 15px;
+                width: 100%;
+            }
+
+            .btn {
+                flex: 1;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tab {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+
+            .header h1 {
+                font-size: 1.2rem;
+            }
+
+            .header-controls {
+                gap: 10px;
+            }
+
+            .action-buttons-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 10px 15px;
+            }
+
+            .header-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .case-title {
+                font-size: 20px;
+            }
+
+            .tab {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+
+            .tab-content {
+                padding: 15px;
+            }
+
+            .action-buttons-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .demo-alert {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ff6b6b;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            font-size: 18px;
+            z-index: 9999;
+            cursor: default;
+            animation: pulse 2s infinite, float 3s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+        
+        .demo-alert:hover {
+            background-color: #ff5252;
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 107, 107, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateX(-50%) translateY(0px); }
+            50% { transform: translateX(-50%) translateY(-5px); }
+            100% { transform: translateX(-50%) translateY(0px); }
+        }
+        
+        .close-btn {
+            display: inline-block;
+            margin-left: 15px;
+            background: rgba(255, 255, 255, 0.3);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="demo-alert" id="demoAlert">
+        This Page is For Demo Purposes
+        <span class="close-btn" id="closeBtn">×</span>
+    </div>
+
+    <div class="header">
+        <h1>GCMS Insights - Case Manager</h1>
+        <div class="header-controls">
+            <div class="theme-toggle">
+                <input type="checkbox" id="theme-toggle-checkbox" class="theme-toggle-checkbox">
+                <label for="theme-toggle-checkbox" class="theme-toggle-label">
+                    <span class="theme-toggle-sun">
+                        <i class="fas fa-sun"></i>
+                    </span>
+                    <span class="theme-toggle-moon">
+                        <i class="fas fa-moon"></i>
+                    </span>
+                    <span class="theme-toggle-ball"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="Case Management.html">Case Management</a>
+            <span>></span>
+            <span id="case-breadcrumb-title">Property Tax Appeal</span>
+        </div>
+
+        <div class="case-header">
+            <div class="case-title-section">
+                <div class="case-id" id="case-id">Case #<span id="case-id-value">GCMS-2023-0042</span></div>
+                <h1 class="case-title" id="case-title">Property Tax Appeal</h1>
+                <div class="status-badge status-active" id="case-status-badge">
+                    <span class="status-icon">⌛</span>
+                    <span id="case-status-text">Active</span>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="updateStatusBtn">
+                    <span class="btn-icon"><i class="fas fa-sync-alt"></i></span>
+                    <span>Update Status</span>
+                </button>
+                <button class="btn btn-secondary" id="printBtn">
+                    <span class="btn-icon"><i class="fas fa-print"></i></span>
+                    <span>Print</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="case-content">
+            <div class="tab-header">
+                <div class="tab active" data-target="details-tab">Details</div>
+                <div class="tab" data-target="activity-tab">Activity</div>
+                <div class="tab" data-target="documents-tab">Documents</div>
+                <div class="tab" data-target="notes-tab">Notes</div>
+                <div class="tab" data-target="actions-tab">Actions</div>
+            </div>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="details-tab">
+                    <div class="info-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-info-circle section-icon"></i>
+                            Case Information
+                        </h2>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-label">Case Title</div>
+                                <div class="info-value" id="case-title-value">Property Tax Appeal</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Citizen ID</div>
+                                <div class="info-value" id="citizen-id">CID-789456</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Date Filed</div>
+                                <div class="info-value" id="date-filed">2023-11-15</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Status</div>
+                                <div class="info-value" id="status-value">Active</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Assigned To</div>
+                                <div class="info-value" id="assigned-to">John Doe (Case Manager)</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Priority</div>
+                                <div class="info-value" id="priority-value">Medium</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-align-left section-icon"></i>
+                            Case Description
+                        </h2>
+                        <div class="description-box">
+                            <p class="description-text" id="case-description">The citizen is appealing their property
+                                tax assessment for the year 2023, claiming the valuation is significantly higher than
+                                the market value. Supporting documents include recent property appraisals and comparable
+                                sales in the area.</p>
+                        </div>
+                    </div>
+                    <div class="info-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-user section-icon"></i>
+                            Citizen Information
+                        </h2>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-label">Full Name</div>
+                                <div class="info-value" id="citizen-name">Ahmed Mohammed</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Contact Number</div>
+                                <div class="info-value" id="citizen-phone">+966 50 123 4567</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Email</div>
+                                <div class="info-value" id="citizen-email">ahmed.m@example.com</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Address</div>
+                                <div class="info-value" id="citizen-address">123 Main St, Riyadh, Saudi Arabia</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="activity-tab">
+                    <div class="info-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-history section-icon"></i>
+                            Case Activity
+                        </h2>
+                        <div class="activity-timeline">
+                            <div class="timeline-line"></div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot">1</div>
+                                <div class="timeline-date">2023-11-15</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Case Created</div>
+                                    <div class="timeline-text">Case was filed by the citizen through the online portal.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot">2</div>
+                                <div class="timeline-date">2023-11-18</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Under Review</div>
+                                    <div class="timeline-text">Case was assigned to a case worker for initial review.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot active">3</div>
+                                <div class="timeline-date">2023-11-22</div>
+                                <div class="timeline-content">
+                                    <div class="timeline-title">Documents Requested</div>
+                                    <div class="timeline-text">Additional documentation requested from the citizen.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="documents-tab">
+                    <div class="info-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-file-alt section-icon"></i>
+                            Related Documents
+                        </h2>
+                        <ul class="documents-list">
+                            <li class="document-item">
+                                <span class="document-icon"><i class="fas fa-file-alt"></i></span>
+                                <div class="document-details">
+                                    <div class="document-name">Tax Assessment Notice.pdf</div>
+                                    <div class="document-info">Uploaded on 2023-11-15 • 2.4 MB</div>
+                                </div>
+                                <div class="document-actions">
+                                    <button class="document-button" title="Download"><i
+                                            class="fas fa-download"></i></button>
+                                    <button class="document-button" title="View"><i class="fas fa-eye"></i></button>
+                                    <button class="document-button" title="Delete"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </li>
+                            <li class="document-item">
+                                <span class="document-icon"><i class="fas fa-file-alt"></i></span>
+                                <div class="document-details">
+                                    <div class="document-name">Property Appraisal.pdf</div>
+                                    <div class="document-info">Uploaded on 2023-11-17 • 3.1 MB</div>
+                                </div>
+                                <div class="document-actions">
+                                    <button class="document-button" title="Download"><i
+                                            class="fas fa-download"></i></button>
+                                    <button class="document-button" title="View"><i class="fas fa-eye"></i></button>
+                                    <button class="document-button" title="Delete"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </li>
+                            <li class="document-item">
+                                <span class="document-icon"><i class="fas fa-file-alt"></i></span>
+                                <div class="document-details">
+                                    <div class="document-name">Comparable Sales.xlsx</div>
+                                    <div class="document-info">Uploaded on 2023-11-17 • 1.2 MB</div>
+                                </div>
+                                <div class="document-actions">
+                                    <button class="document-button" title="Download"><i
+                                            class="fas fa-download"></i></button>
+                                    <button class="document-button" title="View"><i class="fas fa-eye"></i></button>
+                                    <button class="document-button" title="Delete"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </li>
+                        </ul>
+                        <button class="btn btn-primary" id="uploadDocumentBtn">
+                            <span class="btn-icon"><i class="fas fa-upload"></i></span>
+                            <span>Upload Document</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="notes-tab">
+                    <div class="info-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-sticky-note section-icon"></i>
+                            Case Notes
+                        </h2>
+                        <div class="notes-section">
+                            <div class="note-item">
+                                <div class="note-header">
+                                    <div class="note-author">Case Worker (John D.)</div>
+                                    <div class="note-date">2023-11-18</div>
+                                </div>
+                                <div class="note-text">Initial review indicates the property valuation may indeed be
+                                    higher than comparable properties in the area. Waiting for additional documentation
+                                    from the citizen.</div>
+                            </div>
+                            <div class="note-item">
+                                <div class="note-header">
+                                    <div class="note-author">Supervisor (Maria G.)</div>
+                                    <div class="note-date">2023-11-20</div>
+                                </div>
+                                <div class="note-text">Please verify if the submitted comparables are truly comparable
+                                    in terms of size, location, and condition.</div>
+                            </div>
+                        </div>
+                        <div class="add-note-form">
+                            <h3 class="section-title">
+                                <i class="fas fa-plus-circle section-icon"></i>
+                                Add New Note
+                            </h3>
+                            <div class="form-group">
+                                <label for="note-text" class="form-label">Note Content</label>
+                                <textarea id="note-text" class="form-textarea"
+                                    placeholder="Enter your note here..."></textarea>
+                            </div>
+                            <button class="btn btn-primary" id="addNoteBtn">
+                                <span class="btn-icon"><i class="fas fa-save"></i></span>
+                                <span>Save Note</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane" id="actions-tab">
+                    <div class="info-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-cogs section-icon"></i>
+                            Manager Actions
+                        </h2>
+                        <div class="manager-actions">
+                            <h3 class="action-title">Available Actions</h3>
+                            <div class="action-buttons-grid">
+                                <div class="action-button" id="assignCaseBtn">
+                                    <i class="fas fa-user-friends action-icon"></i>
+                                    <span class="action-label">Assign Case</span>
+                                </div>
+                                <div class="action-button" id="requestInfoBtn">
+                                    <i class="fas fa-info-circle action-icon"></i>
+                                    <span class="action-label">Request Info</span>
+                                </div>
+                                <div class="action-button" id="scheduleMeetingBtn">
+                                    <i class="fas fa-calendar-alt action-icon"></i>
+                                    <span class="action-label">Schedule Meeting</span>
+                                </div>
+                                <div class="action-button" id="escalateCaseBtn">
+                                    <i class="fas fa-exclamation-triangle action-icon"></i>
+                                    <span class="action-label">Escalate Case</span>
+                                </div>
+                                <div class="action-button" id="closeCaseBtn">
+                                    <i class="fas fa-check-circle action-icon"></i>
+                                    <span class="action-label">Close Case</span>
+                                </div>
+                                <div class="action-button" id="rejectCaseBtn">
+                                    <i class="fas fa-times-circle action-icon"></i>
+                                    <span class="action-label">Reject Case</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Update Modal -->
+    <div class="modal" id="statusModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Update Case Status</h3>
+                <button class="close-btn" id="closeStatusModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="status-select" class="form-label">Select New Status</label>
+                    <select id="status-select" class="form-select">
+                        <option value="active">Active</option>
+                        <option value="pending">Pending</option>
+                        <option value="completed">Completed</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="status-comments" class="form-label">Comments</label>
+                    <textarea id="status-comments" class="form-textarea"
+                        placeholder="Add any comments about the status change..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelStatusUpdate">Cancel</button>
+                <button class="btn btn-primary" id="saveStatusUpdate">Save Changes</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Theme Toggle Functionality
+            const themeToggle = document.getElementById('theme-toggle-checkbox');
+
+            // Check for saved theme preference or use preferred color scheme
+            const currentTheme = localStorage.getItem('theme') ||
+                (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+            if (currentTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                themeToggle.checked = true;
+            }
+
+            // Theme toggle event listener
+            themeToggle.addEventListener('change', function () {
+                if (this.checked) {
+                    document.body.classList.add('dark-theme');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.body.classList.remove('dark-theme');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Handle tab switching
+            const tabs = document.querySelectorAll(".tab");
+            const tabPanes = document.querySelectorAll(".tab-pane");
+
+            tabs.forEach(tab => {
+                tab.addEventListener("click", function () {
+                    tabs.forEach(t => t.classList.remove("active"));
+                    tabPanes.forEach(pane => pane.classList.remove("active"));
+
+                    this.classList.add("active");
+                    const targetPane = document.getElementById(this.getAttribute("data-target"));
+                    targetPane.classList.add("active");
+                });
+            });
+        });
+
+            document.addEventListener('DOMContentLoaded', function () {
+                    const alertElement = document.getElementById('demoAlert');
+                    const closeBtn = document.getElementById('closeBtn');
+
+                    // Close button functionality
+                    closeBtn.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        alertElement.style.transform = 'translateX(-50%) scale(0)';
+                        alertElement.style.opacity = '0';
+                        setTimeout(() => {
+                            alertElement.style.display = 'none';
+                        }, 300);
+                    });
+
+                    // Make it bounce when clicked
+                    alertElement.addEventListener('click', function (e) {
+                        if (e.target === closeBtn) return;
+
+                        alertElement.style.transform = 'translateX(-50%) scale(0.95)';
+                        setTimeout(() => {
+                            alertElement.style.transform = 'translateX(-50%) scale(1)';
+                        }, 100);
+                    });
+                });
+    </script>
+</body>
+
+</html>

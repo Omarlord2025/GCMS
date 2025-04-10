@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCMS Insights - Government Case Management System</title>
+    <meta name="description"
+        content="Advanced Government Case and Citizen Management System developed by passionate students">
+    <link rel="icon" type="image/x-icon" href="court-icon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --color-theme-50: #EBFFE8;
+            --color-theme-100: #eeefc3;
+            --color-theme-200: #d9dfa0;
+            --color-theme-300: #bdcf81;
+            --color-theme-400: #afbf65;
+            --color-theme-500: #aaaf4c;
+            --color-theme-600: #c3c317;
+            --color-theme-700: #858823;
+            --color-theme-800: #9fbc1d;
+            --color-theme-900: #5b6008;
+            --color-theme-950: #3f4d00;
+            --heading-font: 'Roboto', sans-serif;
+            --body-font: 'Lato', sans-serif;
+            --bg-color: #f9f9f9;
+            --text-color: #333;
+            --card-bg: white;
+            --header-bg: white;
+            --border-color: #eee;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --lighter-primary: #276659;
+        }
+        :root {
+            --dark-olive: #112f28;
+            --secondary: #8f7a4b;
+            --accent: #d8bd71;
+            --primary: #184138;
+            --off-white: #f5e9d0;
+            --lighter-primary: #276659;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--body-font);
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: transparent;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header-scrolled {
+            background-color: transparent;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: var(--primary) !important;
+            border-radius: 50px;
+            margin-top: 0.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-family: var(--heading-font);
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            color: var(--accent) !important;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+    .hero {
+        position: relative;
+        height: 100vh;
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+            url('القاضي.jpeg') no-repeat center center/cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        padding: 0 2rem;
+        animation: fadeIn 1.5s ease-in-out;
+        overflow: hidden;
+    }
+
+    .hero-content {
+        position: relative;
+        max-width: 800px;
+    z-index: 2;
+    }
+
+    .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+    }
+
+    .hero::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        z-index: 0;
+    }
+
+    .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        font-family: var(--heading-font);
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        animation: slideUp 1s ease-out;
+    }
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    animation: slideUp 1s ease-out 0.2s forwards;
+    opacity: 0;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: var(--primary);
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary);
+    animation: slideUp 1s ease-out 0.4s forwards;
+    opacity: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.cta-button:hover {
+    background-color: transparent;
+    color: var(--lighter-primary);
+    border-color: var(--lighter-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+        /* Story Section */
+        .story {
+            padding: 5rem 5%;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-family: var(--heading-font);
+            margin-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        .story-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .story-text {
+            flex: 1;
+        }
+
+        .story-text h3 {
+            font-size: 1.8rem;
+            color: var(--color-theme-700);
+            margin-bottom: 1.5rem;
+        }
+
+        .story-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .team-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .highlight-card {
+            background-color: var(--color-theme-50);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .highlight-card i {
+            font-size: 2rem;
+            color: var(--color-theme-500);
+            margin-bottom: 1rem;
+        }
+
+        .story-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .story-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 5%;
+            background-color: white;
+        }
+
+        .features-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            background-color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .feature-card.animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .feature-card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .feature-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .feature-card:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        /* System Architecture Section */
+        .architecture {
+            padding: 5rem 5%;
+            background-color: white;
+        }
+
+        .architecture-diagram {
+            max-width: 1000px;
+            margin: 2rem auto;
+            background-color: var(--color-theme-50);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .architecture-diagram img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 3rem auto 0;
+        }
+
+        .tech-item {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--color-theme-50);
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .tech-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Team Section */
+        .team {
+            padding: 5rem 5%;
+            background-color: var(--color-theme-50);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .team-member {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .member-image {
+            height: 250px;
+            background-color: #eee;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .team-member:hover .member-image img {
+            transform: scale(1.1);
+        }
+
+        .member-info {
+            padding: 1.5rem;
+        }
+
+        .member-info h3 {
+            font-size: 1.3rem;
+            color: var(--color-theme-700);
+            margin-bottom: 0.5rem;
+        }
+
+        .member-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .member-social {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .member-social a {
+            color: var(--color-theme-500);
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .member-social a:hover {
+            color: var(--color-theme-700);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 5rem 5%;
+            background-color: white;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .contact-info.animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .contact-details {
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-right: 1rem;
+            margin-top: 0.3rem;
+        }
+
+        .contact-form {
+            background-color: var(--color-theme-50);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .contact-form.animate {
+            animation: fadeInUp 0.6s ease 0.2s forwards;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: var(--body-font);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-theme-500);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #9e8b54;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px #00000085;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-olive);
+            color: white;
+            padding: 3rem 5%;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo img {
+            height: 40px;
+        }
+
+        .footer-story p {
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--color-theme-300);
+        }
+
+        .footer-links h3,
+        .footer-contact h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-links h3::after,
+        .footer-contact h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-contact p {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            opacity: 0.8;
+        }
+
+        .footer-contact i {
+            margin-right: 0.8rem;
+            color: var(--secondary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--dark-olive);
+            transform: translateY(-5px);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .story-content {
+                flex-direction: column;
+            }
+
+            .story-image {
+                margin-top: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+                
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.5s ease;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .cta-button {
+                padding: 0.7rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-story,
+            .footer-links,
+            .footer-contact {
+                margin-bottom: 2rem;
+            }
+        }
+
+        /* Theme Toggle Styles */
+        .theme-toggle {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle-checkbox {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .theme-toggle-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            cursor: pointer;
+            width: 50px;
+            height: 26px;
+            background: var(--accent);
+            border-radius: 50px;
+            padding: 5px;   
+            transition: background 0.3s ease;
+        }
+
+        .theme-toggle-label:hover {
+            background: var(--accent);
+        }
+
+        .theme-toggle-ball {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle-checkbox:checked+.theme-toggle-label .theme-toggle-ball {
+            transform: translateX(24px);
+        }
+
+        .theme-toggle-sun,
+        .theme-toggle-moon {
+            font-size: 14px;
+            color: white;
+        }
+
+        .theme-toggle-sun {
+            margin-right: 5px;
+        }
+
+        .theme-toggle-moon {
+            margin-left: 5px;
+        }
+
+        /* Dark Theme Styles */
+        body.dark-theme {
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+
+        body.dark-theme header {
+            background-color: transparent;
+            
+        }
+
+        body.dark-theme .header-scrolled {
+            background-color: transparent;
+        }
+
+        body.dark-theme .nav-links a {
+            color: #e0e0e0 ;
+        }
+
+        body.dark-theme .features,
+        body.dark-theme .contact {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
+
+        body.dark-theme .feature-card,
+        body.dark-theme .contact-form {
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        body.dark-theme .section-title h2,
+        body.dark-theme .feature-card h3,
+        body.dark-theme .contact-info h3 {
+            color: var(--accent);
+        }
+
+        body.dark-theme .team {
+            background-color: #1a1a1a;
+        }
+
+        body.dark-theme footer {
+            background-color: #0a0a0a;
+        }
+
+        body.dark-theme .footer-links a,
+        body.dark-theme .footer-contact p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        body.dark-theme .footer-links a:hover {
+            color: white;
+        }
+
+        body.dark-theme .form-group input,
+        body.dark-theme .form-group textarea {
+            background-color: #333;
+            border-color: #444;
+            color: #e0e0e0;
+        }
+
+        body.dark-theme .form-group input:focus,
+        body.dark-theme .form-group textarea:focus {
+            border-color: var(--secondary);
+        }
+
+        body.dark-theme .story,
+        body.dark-theme .architecture {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
+
+        body.dark-theme .highlight-card {
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+        }
+
+        body.dark-theme .tech-item {
+            background-color: #112f28;
+            color: #e0e0e0;
+        }
+
+        body.dark-theme .team-member {
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+        }
+
+        body.dark-theme .member-info p {
+            color: #b0b0b0;
+        }
+
+        body.dark-theme .contact-form {
+            background-color: #2d2d2d;
+        }
+
+        /* Dark Mode Icon Colors */
+        body.dark-theme .feature-icon,
+        body.dark-theme .tech-icon,
+        body.dark-theme .contact-icon,
+        body.dark-theme .member-social a,
+        body.dark-theme .social-links a,
+        body.dark-theme .footer-contact i {
+            color: var(--accent);
+        }
+                /* ====== ADDED SERVICE CARDS STYLES ====== */
+        .services {
+            padding: 1rem 5%;
+            background-color: var(--card-bg);
+            transition: all 0.3s ease;
+        }
+
+        .services-grid {
+            max-width: 1200px;
+            margin: 1rem auto;
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            position: relative;
+            min-height: 400px;
+        }
+
+        .service-card {
+            border: 1px solid var(--secondary);
+            padding: 2rem;
+            border-radius: 8px;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            cursor: pointer;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+
+        .service-card.active {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            z-index: 3;
+            position: relative;
+        }
+
+        .service-card.prev,
+        .service-card.next {
+            opacity: 0.8;
+            transform: translateX(120%) scale(0.9);
+            z-index: 2;
+        }
+
+        .service-card.prev {
+            transform: translateX(-120%) scale(0.9);
+        }
+
+
+
+        .service-icon img {
+            width: 2.5rem;
+            height: 2.5rem;
+            object-fit: cover;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-olive);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .services-grid {
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+                min-height: auto;
+            }
+            
+            .service-card {
+                position: relative !important;
+                transform: none !important;
+                margin-bottom: 2rem;
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        /* Dark Mode Styles for Services */
+        body.dark-theme .services {
+            background-color: #1e1e1e;
+        }
+
+        body.dark-theme .service-card {
+            background-color: #2d2d2d;
+            border-color: var(--accent);
+            color: #e0e0e0;
+        }
+
+        body.dark-theme .btn-primary {
+            background: var(--accent);
+            color: var(--dark-olive);
+        }
+
+        body.dark-theme .btn-primary:hover {
+            background: #9e8b54;
+        }
+        .icon{
+            width: 4rem;
+            height:4rem;
+            border-radius: 40px;
+         
+
+        }
+        .icon-text{
+            font-size: 3rem;
+        }
+        #key-icon{
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="header">
+        <nav class="navbar">
+            <div class="logo">
+                <a href="#home"></a>
+                <span style="font-size: 2rem; margin-right: 10px;">⚖️</span>
+                </a>
+                <h1>Ministry of Justice</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="About US.html">About US</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#architecture">Technology</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <!-- Theme toggle in your navbar-->
+            <div class="theme-toggle">
+                <input type="checkbox" id="theme-toggle-checkbox" class="theme-toggle-checkbox">
+                <label for="theme-toggle-checkbox" class="theme-toggle-label">
+                    <span class="theme-toggle-sun">
+                        <i class="fas fa-sun"></i>
+                    </span>
+                    <span class="theme-toggle-moon">
+                        <i class="fas fa-moon"></i>
+                    </span>
+                    <span class="theme-toggle-ball"></span>
+                </label>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="tagline typewriter animate__animated animate__fadeInUp">Revolutionizing Government Case Management</h1>
+            <p>An advanced system developed by passionate students to streamline citizen services and case management
+                with AI-powered features.</p>
+            <a href="Login.html" class="cta-button">Get Started</a>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+        <div class="section-title">
+            <h2>Main Services</h2>
+            <p>Comprehensive digital services for citizens and case management</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon"><P class="icon-text">⚖️</P></div>
+                <h3>Case Management</h3>
+                <p>Track and resolve legal cases digitally with full transparency.</p>
+                <a href="Login.html"><button class="btn btn-primary">Manage Cases →</button></a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon"><p class="icon-text" id="key-icon">🔒</p></div>
+                <h3>Citizen Services</h3>
+                <p>Secure access to personal records and government documents.</p>
+                <a href="Login.html"><button class="btn btn-primary">View Citizens →</button></a>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon"><p class="icon-text">📝</p></div>
+                <h3>Your Citizen Info</h3>
+                <p>Your central hub for personal information and family-related matters.</p>
+                <a href="Login.html"><button class="btn btn-primary">File Documents →</button></a>
+            </div>
+        </div>
+    </section>
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2>System Features</h2>
+            <p>Comprehensive tools for government case management</p>
+        </div>
+
+        <div class="features-tabs">
+            <button class="tab-btn active" data-tab="login">Login Features</button>
+            <button class="tab-btn" data-tab="citizen">Citizen Management</button>
+            <button class="tab-btn" data-tab="case">Case Management</button>
+            <button class="tab-btn" data-tab="ai">AI Chatbot</button>
+        </div>
+
+        <div class="tab-content active" id="login-features">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h3>User Authentication</h3>
+                    <p>Secure login system with username, password, and role-based authentication (citizen, case-worker,
+                        manager).</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <h3>Role-Based Access</h3>
+                    <p>Different roles have access to different parts of the system with appropriate permissions.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h3>User Registration</h3>
+                    <p>New users can register with secure credentials and appropriate role assignments.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="citizen-features">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-edit"></i>
+                    </div>
+                    <h3>CRUD Operations</h3>
+                    <p>Create, read, update, and delete citizen records with comprehensive details including ID, name,
+                        job title, and mother's name.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3>Photo Upload</h3>
+                    <p>Supports file uploads for citizen photos, stored with the citizen's ID as the filename.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Family Links</h3>
+                    <p>View family relationships and linked profiles with their case history for comprehensive citizen
+                        management.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="case-features">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-folder-plus"></i>
+                    </div>
+                    <h3>Case Management</h3>
+                    <p>Create, read, update, and delete cases with details like citizen ID, title, description, and
+                        status.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3>Case Tracking</h3>
+                    <p>Track case status (open, closed) with creation dates and progress history.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                    <h3>Appeals System</h3>
+                    <p>Citizens can submit complaints or appeals directly through the system.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="ai-features">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Legal Analysis</h3>
+                    <p>Uses LLM to analyze laws and answer questions in a conversational chatbot interface.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <h3>Multi-Language</h3>
+                    <p>Detects user language (Arabic/English) and translates responses as needed.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Real-time Responses</h3>
+                    <p>Provides streaming, word-by-word responses for natural conversation flow.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Architecture Section -->
+    <section class="architecture" id="architecture">
+        <div class="section-title">
+            <h2>Our Technology Stack</h2>
+            <p>Powering the future of government case management</p>
+        </div>
+
+        <div class="architecture-diagram">
+            <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
+                alt="GCMS System Architecture">
+        </div>
+
+        <div class="tech-stack">
+            <div class="tech-item">
+                <div class="tech-icon">
+                    <i class="fab fa-python"></i>
+                </div>
+                <h3>Python</h3>
+                <p>High-level language used for the LLM chatbot and backend services.</p>
+            </div>
+
+            <div class="tech-item">
+                <div class="tech-icon">
+                    <i class="fab fa-js"></i>
+                </div>
+                <h3>JavaScript</h3>
+                <p>The main language powering both frontend and backend components.</p>
+            </div>
+
+            <div class="tech-item">
+                <div class="tech-icon">
+                    <i class="fab fa-html5"></i>
+                </div>
+                <h3>HTML & CSS</h3>
+                <p>Used to create dynamic, animated frontend interfaces.</p>
+            </div>
+
+            <div class="tech-item">
+                <div class="tech-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>TensorFlow</h3>
+                <p>Machine learning library for building deep learning models.</p>
+            </div>
+
+            <div class="tech-item">
+                <div class="tech-icon">
+                    <i class="fab fa-node-js"></i>
+                </div>
+                <h3>Node.js</h3>
+                <p>JavaScript runtime for efficient server-side operations.</p>
+            </div>
+
+            <div class="tech-item">
+                <div class="tech-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3>SQLite</h3>
+                <p>Lightweight database system for case, citizen, and user data.</p>
+            </div>
+        </div>
+    </section>
+
+   
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="section-title">
+            <h2>Get In Touch</h2>
+            <p>We'd love to hear from you about our GCMS solution</p>
+        </div>
+
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p>Have questions about our Government Case Management System or interested in implementation? Our
+                    student team is ready to assist.</p>
+
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Location</h4>
+                            <p>NEIS School, Innovation District, City</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+1 (555) 987-6543</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>contact@gcmsinsights.edu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h3>Send Us a Message</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-story">
+                <div class="footer-logo">
+                    <span style="font-size: 2rem; margin-right: 10px;">⚖️</span>
+                    <span style="font-family: var(--heading-font); font-weight: 700; color: white;">GCMS Insights</span>
+                </div>
+                <p>An innovative Government Case Management System developed by passionate students to revolutionize
+                    citizen services.</p>
+            </div>
+
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="About US.html">About US</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#architecture">Technology</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> NEIS School, Innovation District, City</p>
+                <p><i class="fas fa-phone-alt"></i> +1 (555) 987-6543</p>
+                <p><i class="fas fa-envelope"></i> contact@gcmsinsights.edu</p>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <p>&copy; 2025 GCMS Insights - NEIS School. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle-checkbox');
+
+        // Check for saved theme preference or use preferred color scheme
+        const currentTheme = localStorage.getItem('theme') ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+        if (currentTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+            themeToggle.checked = true;
+        }
+
+        // Theme toggle event listener
+        themeToggle.addEventListener('change', function () {
+            if (this.checked) {
+                document.body.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.classList.remove('dark-theme');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ?
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+
+        // Back to top button
+        const backToTopBtn = document.querySelector('.back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('active');
+            } else {
+                backToTopBtn.classList.remove('active');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Feature tabs
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                // Add active class to clicked button
+                btn.classList.add('active');
+
+                // Show corresponding content
+                const tabId = btn.dataset.tab;
+                document.getElementById(`${tabId}-features`).classList.add('active');
+            });
+        });
+
+        // Replace this in your existing script section (around line 1800)
+            // Form submission with enhanced productivity features
+            const contactForm = document.getElementById('contactForm');
+            const submitBtn = contactForm.querySelector('.submit-btn');
+            const originalBtnText = submitBtn.textContent;
+
+            // Form validation
+            function validateForm() {
+                let isValid = true;
+                const inputs = contactForm.querySelectorAll('input, textarea');
+
+                inputs.forEach(input => {
+                    input.classList.remove('error');
+                    if (!input.value.trim()) {
+                        input.classList.add('error');
+                        isValid = false;
+                    }
+
+                    // Email validation
+                    if (input.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value)) {
+                        input.classList.add('error');
+                        isValid = false;
+                    }
+                });
+
+                return isValid;
+            }
+
+            // Form submission handler
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                // Validate form
+                if (!validateForm()) {
+                    showToast('Please fill all required fields correctly', 'error');
+                    return;
+                }
+
+                // Disable button and show loading state
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
+
+                try {
+                    // Prepare form data
+                    const formData = {
+                        name: contactForm.name.value,
+                        email: contactForm.email.value,
+                        subject: contactForm.subject.value,
+                        message: contactForm.message.value,
+                        _replyto: contactForm.email.value, // For email services
+                        _subject: `New Contact Form Submission: ${contactForm.subject.value}` // Email subject
+                    };
+
+                    // Send data to your email (using FormSubmit.co service as an example)
+                    const response = await sendFormData(formData);
+
+                    if (response.ok) {
+                        showToast('Message sent successfully! We\'ll get back to you soon.', 'success');
+                        contactForm.reset();
+                    } else {
+                        throw new Error('Failed to send message. Please try again later.');
+                    }
+                } catch (error) {
+                    console.error('Form submission error:', error);
+                    showToast(error.message || 'Something went wrong. Please try again.', 'error');
+                } finally {
+                    // Re-enable button
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                }
+            });
+
+            // Function to send form data (using FormSubmit.co as an example)
+            async function sendFormData(formData) {
+                // Replace with your actual FormSubmit endpoint or other email service
+                const formSubmitEndpoint = 'https://formsubmit.co/ajax/youremail.com';
+
+                const response = await fetch(formSubmitEndpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Network response was not ok');
+                }
+
+                return response;
+            }
+
+            // Helper function to show toast notifications
+            function showToast(message, type = 'info') {
+                const toast = document.createElement('div');
+                toast.className = `toast toast-${type}`;
+                toast.textContent = message;
+                document.body.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.classList.add('show');
+                    setTimeout(() => {
+                        toast.classList.remove('show');
+                        setTimeout(() => toast.remove(), 300);
+                    }, 3000);
+                }, 100);
+            }
+
+        // Add CSS for toast notifications and error states
+        const style = document.createElement('style');
+        style.textContent = `
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 24px;
+            background: #333;
+            color: white;
+            border-radius: 4px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 10000;
+        }
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .toast-success {
+            background: var(--color-theme-500);
+        }
+        .toast-error {
+            background: #e74c3c;
+        }
+        input.error, textarea.error {
+            border-color: #e74c3c !important;
+        }
+    `;
+        document.head.appendChild(style);        // Scroll animations
+
+
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.feature-card, .contact-info, .contact-form, .story-text, .story-image, .team-member, .tech-item');
+
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+
+                if (elementPosition < screenPosition) {
+                    element.classList.add('animate');
+                }
+            });
+        }
+            // Typewriter effect for tagline
+            const tagline = document.querySelector('.tagline');
+            const taglineText = tagline.textContent;
+            tagline.textContent = '';
+            tagline.style.opacity = 1;
+
+            let charIndex = 0;
+            const typeWriter = () => {
+            if (charIndex < taglineText.length) {
+            tagline.textContent += taglineText.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeWriter, 100);
+            } else {
+            tagline.classList.add('typewriter');
+            }
+            }
+
+            setTimeout(typeWriter, 500);
+                
+
+        // Run once on page load
+        animateOnScroll();
+
+        // Run on scroll
+        window.addEventListener('scroll', animateOnScroll);
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const serviceCards = document.querySelectorAll('.service-card');
+            let activeCardIndex = 0;
+
+            // Initialize cards
+            serviceCards.forEach((card, index) => {
+                card.style.opacity = '1';
+                if(index === 0) card.classList.add('active');
+                if(index === 1) card.classList.add('prev');
+                if(index === 2) card.classList.add('next');
+            });
+
+            // Click handler for cards
+            serviceCards.forEach((card, index) => {
+                card.addEventListener('click', () => {
+                    if(index === activeCardIndex) return;
+                    
+                    serviceCards.forEach(c => c.classList.remove('active', 'prev', 'next'));
+                    card.classList.add('active');
+                    
+                    const nextIndex = (index + 1) % serviceCards.length;
+                    const prevIndex = (index - 1 + serviceCards.length) % serviceCards.length;
+                    
+                    serviceCards[nextIndex].classList.add('next');
+                    serviceCards[prevIndex].classList.add('prev');
+                    activeCardIndex = index;
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

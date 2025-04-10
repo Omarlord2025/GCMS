@@ -1,0 +1,25 @@
+Setup Instructions:
+Sign up for FormSubmit.co (free service):
+
+Go to https://formsubmit.co
+
+Enter your email address to get a unique endpoint
+
+Replace your-email@example.com in the code with your FormSubmit endpoint
+
+Alternative Email Services:
+If you prefer another service, here are options:
+
+Formspree: Similar to FormSubmit
+
+EmailJS: More customizable but requires setup
+
+Server-side script: PHP, Node.js, etc. (more complex)
+
+Testing:
+
+Fill out the form and submit
+
+Check your email for the test message
+
+Verify error handling by submitting invalid data

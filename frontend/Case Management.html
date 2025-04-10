@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Case Management System</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Lato:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --color-theme-50: #EBFFE8;
+            --color-theme-100: #eeefc3;
+            --color-theme-200: #d9dfa0;
+            --color-theme-300: #bdcf81;
+            --color-theme-400: #afbf65;
+            --color-theme-500: #aaaf4c;
+            --color-theme-600: #c3c317;
+            --color-theme-700: #858823;
+            --color-theme-800: #9fbc1d;
+            --color-theme-900: #5b6008;
+            --color-theme-950: #3f4d00;
+            --heading-font: 'Roboto', sans-serif;
+            --body-font: 'Lato', sans-serif;
+            --off-white: #f5e9d0;
+            --dark-olive: #112f28;
+            --secondary: #8f7a4b;
+            --accent: #d8bd71;
+            --primary: #184138;
+            --transition-speed: 0.3s;
+        }
+
+        /* Dark theme variables */
+        :root.dark-theme {
+            --color-theme-50: #1a1a1a;
+            --color-theme-100: #2a2a2a;
+            --color-theme-200: #3a3a3a;
+            --color-theme-300: #4a4a4a;
+            --color-theme-400: #5a5a5a;
+            --color-theme-500: #6a6a6a;
+            --color-theme-600: #7a7a7a;
+            --color-theme-700: #8a8a8a;
+            --color-theme-800: #9a9a9a;
+            --color-theme-900: #aaaaaa;
+            --color-theme-950: #bababa;
+            --off-white: #2d2d2d;
+            --secondary: #a08c5c;
+            --accent: #e9d48b;
+            --primary: #2a8c7a;
+            --dark-olive: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--body-font);
+            transition: background-color var(--transition-speed) ease, 
+                        color var(--transition-speed) ease,
+                        border-color var(--transition-speed) ease;
+        }
+
+        body {
+            background-color: #ededed;
+            color: var(--dark-olive);
+            min-height: 100vh;
+        }
+
+        .dark-theme body {
+            background-color: #0a1310 !important;
+            color: #e0e0e0;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: white;
+            color: #333;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .dark-theme .header {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .dark-theme .header-scrolled {
+            background-color: rgba(30, 30, 30, 0.95);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo h1 {
+            font-family: var(--heading-font);
+            font-size: 1.5rem;
+            color: var(--color-theme-700);
+            font-weight: 700;
+        }
+
+        .dark-theme .logo h1 {
+            color: var(--accent);
+        }
+
+        /* Theme toggle styles */
+        .theme-toggle {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .theme-toggle-checkbox {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .theme-toggle-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            cursor: pointer;
+            width: 50px;
+            height: 26px;
+            background: var(--primary);
+            border-radius: 50px;
+            padding: 5px;
+        }
+
+        .theme-toggle-label:hover {
+            background: var(--dark-olive);
+        }
+
+        .theme-toggle-ball {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform var(--transition-speed) ease;
+        }
+
+        .theme-toggle-checkbox:checked+.theme-toggle-label .theme-toggle-ball {
+            transform: translateX(24px);
+        }
+
+        .theme-toggle-sun,
+        .theme-toggle-moon {
+            font-size: 14px;
+            color: white;
+        }
+
+        .theme-toggle-sun {
+            margin-right: 5px;
+        }
+
+        .theme-toggle-moon {
+            margin-left: 5px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 100px auto 30px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-theme .container {
+            background-color: #1e1e1e;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            color: #e0e0e0;
+        }
+
+        .case-management-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .title-section h1 {
+            font-size: 24px;
+            color: var(--color-theme-700);
+            margin-bottom: 5px;
+            font-family: var(--heading-font);
+        }
+
+        .dark-theme .title-section h1 {
+            color: var(--accent);
+        }
+
+        .title-section p {
+            color: var(--secondary);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            font-weight: 500;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--dark-olive);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-theme .btn-primary:hover {
+            background-color: var(--primary);
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            background-color: var(--off-white);
+            color: var(--dark-olive);
+            border: 1px solid var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background-color: #e9d58b9c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-theme .btn-secondary {
+            background-color: #333;
+            color: #e0e0e0;
+            border-color: var(--secondary);
+        }
+
+        .dark-theme .btn-secondary:hover {
+            background-color: #444;
+        }
+
+        .btn-icon {
+            margin-right: 8px;
+        }
+
+        .stats-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            flex: 1;
+            min-width: 180px;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-theme .stat-card {
+            background-color: #333;
+            color: #e0e0e0;
+        }
+
+        .dark-theme .stat-card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-total {
+            background-color: var(--off-white);
+        }
+
+        .stat-pending {
+            background-color: #fef8e3;
+        }
+
+        .dark-theme .stat-pending {
+            background-color: #3a3a1a;
+        }
+
+        .stat-active {
+            background-color: #e6f6ec;
+        }
+
+        .dark-theme .stat-active {
+            background-color: #1a3a2a;
+        }
+
+        .stat-completed {
+            background-color: #e5f1fd;
+        }
+
+        .dark-theme .stat-completed {
+            background-color: #1a2a3a;
+        }
+
+        .stat-rejected {
+            background-color: #fde7e7;
+        }
+
+        .dark-theme .stat-rejected {
+            background-color: #3a1a1a;
+        }
+
+        .stat-label {
+            font-weight: 500;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--dark-olive);
+        }
+
+        .dark-theme .stat-value {
+            color: #e0e0e0;
+        }
+
+        .stat-icon {
+            font-size: 24px;
+        }
+
+        /* Search and filter container */
+        .search-filter-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            position: relative;
+        }
+
+        .filter-dropdown {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .filter-dropdown select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--secondary);
+            border-radius: 5px;
+            background-color: white;
+            font-size: 14px;
+            color: var(--dark-olive);
+        }
+
+        .dark-theme .filter-dropdown select {
+            background-color: #333;
+            border-color: #555;
+            color: #e0e0e0;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 1px solid var(--secondary);
+            border-radius: 5px;
+            font-size: 16px;
+            color: var(--dark-olive);
+            background-color: white;
+        }
+
+        .dark-theme .search-box input {
+            background-color: #333;
+            border-color: #555;
+            color: #e0e0e0;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary);
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-theme .table-container {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px 20px;
+            font-weight: 500;
+            cursor: pointer;
+            position: sticky;
+            top: 0;
+            background-color: var(--primary);
+            color: var(--accent);
+            border-bottom-color: #555;
+        }
+
+        .dark-theme th {
+            background-color: #256255;
+            color: var(--accent);
+            border-bottom-color: #555;
+        }
+
+        td {
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--secondary);
+            color: var(--dark-olive);
+            background-color: white;
+        }
+
+        .dark-theme td {
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+            border-bottom-color: #444;
+        }
+
+        tr:hover td {
+            background-color: var(--color-theme-50);
+        }
+
+        .dark-theme tr:hover td {
+            background-color: #3a3a3a;
+        }
+
+        .sort-icon {
+            margin-left: 5px;
+            font-size: 14px;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            width: fit-content;
+        }
+
+        .status-pending {
+            background-color: #fef8e3;
+            color: #927b18;
+        }
+
+        .dark-theme .status-pending {
+            background-color: #3a3a1a;
+            color: #e0d080;
+        }
+
+        .status-active {
+            background-color: #e6f6ec;
+            color: #0f8a3c;
+        }
+
+        .dark-theme .status-active {
+            background-color: #1a3a2a;
+            color: #80e0a0;
+        }
+
+        .status-completed {
+            background-color: #e5f1fd;
+            color: #236fb3;
+        }
+
+        .dark-theme .status-completed {
+            background-color: #1a2a3a;
+            color: #80c0e0;
+        }
+
+        .status-rejected {
+            background-color: #fde7e7;
+            color: #bd2525;
+        }
+
+        .dark-theme .status-rejected {
+            background-color: #3a1a1a;
+            color: #e08080;
+        }
+
+        .status-icon {
+            margin-right: 5px;
+        }
+
+        .action-cell {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--secondary);
+            transition: all var(--transition-speed) ease;
+            font-size: 16px;
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .action-btn.edit:hover {
+            color: #047857;
+            background-color: rgba(4, 120, 87, 0.1);
+        }
+
+        .dark-theme .action-btn.edit:hover {
+            color: #10b981;
+            background-color: rgba(16, 185, 129, 0.2);
+        }
+
+        .action-btn.delete:hover {
+            color: #dc2626;
+            background-color: rgba(220, 38, 38, 0.1);
+        }
+
+        .dark-theme .action-btn.delete:hover {
+            color: #ef4444;
+            background-color: rgba(239, 68, 68, 0.2);
+        }
+
+        .action-btn.view-profile:hover {
+            color: #3b82f6;
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+
+        .dark-theme .action-btn.view-profile:hover {
+            color: #60a5fa;
+            background-color: rgba(96, 165, 250, 0.2);
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 500px;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .dark-theme .modal-content {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background-color: inherit;
+            z-index: 1;
+        }
+
+        .dark-theme .modal-header {
+            border-bottom-color: #555;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--dark-olive);
+            font-family: var(--heading-font);
+        }
+
+        .dark-theme .modal-title {
+            color: var(--accent);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--secondary);
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--secondary);
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: white;
+            color: var(--dark-olive);
+        }
+
+        .dark-theme .form-input {
+            background-color: #333;
+            border-color: #555;
+            color: #e0e0e0;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-theme-500);
+            box-shadow: 0 0 0 2px rgba(170, 175, 76, 0.2);
+        }
+
+        .dark-theme .form-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(216, 189, 113, 0.3);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--secondary);
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: white;
+            color: var(--dark-olive);
+        }
+
+        .dark-theme .form-select {
+            background-color: #333;
+            border-color: #555;
+            color: #e0e0e0;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--color-theme-500);
+            box-shadow: 0 0 0 2px rgba(170, 175, 76, 0.2);
+        }
+
+        .dark-theme .form-select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(216, 189, 113, 0.3);
+        }
+
+        textarea.form-input {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .modal-footer {
+            padding: 15px 20px;
+            border-top: 1px solid var(--secondary);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            position: sticky;
+            bottom: 0;
+            background-color: inherit;
+        }
+
+        .dark-theme .modal-footer {
+            border-top-color: #555;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--color-theme-500);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-speed) ease;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+        }
+
+        .dark-theme .back-to-top {
+            background-color: var(--accent);
+            color: #333;
+        }
+
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background-color: var(--color-theme-600);
+            transform: translateY(-5px);
+        }
+
+        .dark-theme .back-to-top:hover {
+            background-color: var(--color-theme-400);
+        }
+
+        /* Filter dropdown enhancements */
+        .filter-dropdown input[list] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--secondary);
+            border-radius: 5px;
+            font-size: 14px;
+            background-color: white;
+            color: var(--dark-olive);
+        }
+
+        .dark-theme .filter-dropdown input[list] {
+            background-color: #333;
+            border-color: #555;
+            color: #e0e0e0;
+        }
+
+        .filter-dropdown input[list]::placeholder {
+            color: var(--secondary);
+        }
+
+        .dark-theme .filter-dropdown input[list]::placeholder {
+            color: #aaa;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                margin-top: 80px;
+                padding: 15px;
+            }
+
+            .stats-container {
+                flex-direction: column;
+            }
+
+            .stat-card {
+                width: 100%;
+            }
+
+            .search-filter-container {
+                flex-direction: column;
+            }
+
+            .case-management-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .action-buttons {
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .modal-content {
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 10px 15px;
+            }
+
+            .logo h1 {
+                font-size: 1.2rem;
+            }
+
+            .action-cell {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .action-btn {
+                padding: 3px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header" id="header">
+        <div class="logo">
+            <span style="font-size: 2rem; margin-right: 10px;">⚖️</span>
+            <h1>GCMS Insights</h1>
+        </div>
+        <div class="language-selector">
+        
+            <!-- Theme toggle -->
+            <div class="theme-toggle">
+                <input type="checkbox" id="theme-toggle-checkbox" class="theme-toggle-checkbox">
+                <label for="theme-toggle-checkbox" class="theme-toggle-label">
+                    <span class="theme-toggle-sun">
+                        <i class="fas fa-sun"></i>
+                    </span>
+                    <span class="theme-toggle-moon">
+                        <i class="fas fa-moon"></i>
+                    </span>
+                    <span class="theme-toggle-ball"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="case-management-header">
+            <div class="title-section">
+                <h1>Case Management</h1>
+                <p>Manage and track government cases</p>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-secondary" id="refreshBtn">
+                    <span class="btn-icon"><i class="fas fa-sync-alt"></i></span>
+                    Refresh
+                </button>
+                <button class="btn btn-primary" id="assignCaseBtn">
+                    <span class="btn-icon"><i class="fas fa-plus"></i></span>
+                    Assign Case
+                </button>
+            </div>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-card stat-total">
+                <div>
+                    <div class="stat-label">Total Cases</div>
+                    <div class="stat-value" id="totalCases">5</div>
+                </div>
+                <div class="stat-icon"><i class="fas fa-file-alt"></i></div>
+            </div>
+            <div class="stat-card stat-pending">
+                <div>
+                    <div class="stat-label">Pending</div>
+                    <div class="stat-value" id="pendingCases">2</div>
+                </div>
+                <div class="stat-icon"><i class="fas fa-clock"></i></div>
+            </div>
+            <div class="stat-card stat-active">
+                <div>
+                    <div class="stat-label">Active</div>
+                    <div class="stat-value" id="activeCases">1</div>
+                </div>
+                <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+            </div>
+            <div class="stat-card stat-completed">
+                <div>
+                    <div class="stat-label">Completed</div>
+                    <div class="stat-value" id="completedCases">1</div>
+                </div>
+                <div class="stat-icon"><i class="fas fa-check"></i></div>
+            </div>
+            <div class="stat-card stat-rejected">
+                <div>
+                    <div class="stat-label">Rejected</div>
+                    <div class="stat-value" id="rejectedCases">1</div>
+                </div>
+                <div class="stat-icon"><i class="fas fa-times"></i></div>
+            </div>
+        </div>
+
+        <div class="search-filter-container">
+            <!-- Case ID filter (now editable) -->
+            <div class="filter-dropdown">
+                <input list="caseIdOptions" id="filterCaseId" class="form-control" placeholder="Case ID">
+                <datalist id="caseIdOptions">
+                    <!-- Options will be populated dynamically -->
+                </datalist>
+            </div>
+        
+            <!-- National ID filter (now editable) -->
+            <div class="filter-dropdown">
+                <input list="nationalIdOptions" id="filterNationalId" class="form-control" placeholder="National ID">
+                <datalist id="nationalIdOptions">
+                    <!-- Options will be populated dynamically -->
+                </datalist>
+            </div>
+        
+            <!-- Keep other filters as regular dropdowns -->
+            <div class="filter-dropdown">
+                <select id="filterCaseTitle" class="form-control">
+                    <option value="">Case Title</option>
+                    <!-- Options will be populated dynamically -->
+                </select>
+            </div>
+            <div class="filter-dropdown">
+                <select id="filterStatus" class="form-control">
+                    <option value="">Status</option>
+                    <!-- Options will be populated dynamically -->
+                </select>
+            </div>
+            <div class="filter-dropdown">
+                <select id="filterDateCreated" class="form-control">
+                    <option value="">Date Created</option>
+                    <!-- Options will be populated dynamically -->
+                </select>
+            </div>
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th data-sort="caseId">Case ID <span class="sort-icon">↕</span></th>
+                        <th data-sort="citizenId">National ID <span class="sort-icon">↕</span></th>
+                        <th data-sort="caseTitle">Case Title <span class="sort-icon">↕</span></th>
+                        <th data-sort="status">Status <span class="sort-icon">↕</span></th>
+                        <th data-sort="dateCreated">Date Created <span class="sort-icon">↕</span></th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="casesTableBody">
+                    <!-- Table rows will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal for assigning/editing cases -->
+    <div class="modal" id="caseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle">Assign New Case</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="caseForm">
+                    <input type="hidden" id="caseIdInput">
+                    <div class="form-group">
+                        <label class="form-label" for="citizenIdInput">National ID</label>
+                        <input type="number" class="form-input" id="citizenIdInput" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="caseTitleInput">Case Title</label>
+                        <input type="text" class="form-input" id="caseTitleInput" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="caseDescriptionInput">Case Description</label>
+                        <textarea class="form-input" id="caseDescriptionInput" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="statusInput">Status</label>
+                        <select class="form-select" id="statusInput" required>
+                            <option value="Pending">Pending</option>
+                            <option value="Active">Active</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                <button class="btn btn-primary" id="saveBtn">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('theme-toggle-checkbox');
+        const htmlElement = document.documentElement;
+
+        // Check for saved theme preference or use preferred color scheme
+        const currentTheme = localStorage.getItem('theme') ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+        if (currentTheme === 'dark') {
+            htmlElement.classList.add('dark-theme');
+            themeToggle.checked = true;
+        }
+
+        // Theme toggle event listener
+        themeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                htmlElement.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                htmlElement.classList.remove('dark-theme');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+
+        // Back to top button
+        const backToTopBtn = document.querySelector('.back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('active');
+            } else {
+                backToTopBtn.classList.remove('active');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        
+        
+        // Modal functionality
+        // DOM elements
+            const casesTableBody = document.getElementById("casesTableBody");
+            const assignCaseBtn = document.getElementById("assignCaseBtn");
+            const refreshBtn = document.getElementById("refreshBtn");
+            const caseModal = document.getElementById("caseModal");
+            const closeModal = document.getElementById("closeModal");
+            const cancelBtn = document.getElementById("cancelBtn");
+            const saveBtn = document.getElementById("saveBtn");
+            const caseForm = document.getElementById("caseForm");
+            const modalTitle = document.getElementById("modalTitle");
+            const caseIdInput = document.getElementById("caseIdInput");
+            const citizenIdInput = document.getElementById("citizenIdInput");
+            const caseTitleInput = document.getElementById("caseTitleInput");
+            const statusInput = document.getElementById("statusInput");
+            const caseDescriptionInput = document.getElementById("caseDescriptionInput");
+
+            // Stats elements
+            const totalCasesEl = document.getElementById("totalCases");
+            const pendingCasesEl = document.getElementById("pendingCases");
+            const activeCasesEl = document.getElementById("activeCases");
+            const completedCasesEl = document.getElementById("completedCases");
+            const rejectedCasesEl = document.getElementById("rejectedCases");
+
+            // Filter DOM elements
+            const filterCaseId = document.getElementById("filterCaseId");
+            const filterNationalId = document.getElementById("filterNationalId");
+            const filterCaseTitle = document.getElementById("filterCaseTitle");
+            const filterStatus = document.getElementById("filterStatus");
+            const filterDateCreated = document.getElementById("filterDateCreated");
+
+            let cases = []; // Store cases globally
+
+            // Function to filter cases based on search and filters
+            function filterCases(cases) {
+                const caseIdFilter = filterCaseId.value;
+                const nationalIdFilter = filterNationalId.value;
+                const caseTitleFilter = filterCaseTitle.value;
+                const statusFilter = filterStatus.value;
+                const dateCreatedFilter = filterDateCreated.value;
+
+                return cases.filter(caseItem => {
+                    return (
+                        (caseIdFilter === "" || caseItem.id.toString().includes(caseIdFilter)) &&
+                        (nationalIdFilter === "" || caseItem.citizenId.includes(nationalIdFilter)) &&
+                        (caseTitleFilter === "" || caseItem.caseTitle === caseTitleFilter) &&
+                        (statusFilter === "" || caseItem.status === statusFilter) &&
+                        (dateCreatedFilter === "" || caseItem.dateCreated === dateCreatedFilter)
+                    );
+                });
+            }
+
+            // Event listeners for search and filter changes
+            filterCaseId.addEventListener("input", () => {
+                fetchCases();
+            });
+
+            filterNationalId.addEventListener("input", () => {
+                fetchCases();
+            });
+
+            filterCaseTitle.addEventListener("change", () => {
+                fetchCases();
+            });
+
+            filterStatus.addEventListener("change", () => {
+                fetchCases();
+            });
+
+            filterDateCreated.addEventListener("change", () => {
+                fetchCases();
+            });
+
+            // Fetch and display cases
+            async function fetchCases() {
+                try {
+                    // Check if user is authenticated
+                    const response = await fetch("/api/cases", {
+                        credentials: 'include' // Include cookies for session
+                    });
+
+                    if (response.status === 401) {
+                        // Redirect to login if not authenticated
+                        window.location.href = "/login";
+                        return;
+                    }
+
+                    cases = await response.json();
+                    const filteredCases = filterCases(cases);
+                    renderCases(filteredCases);
+                    updateStats();
+                    populateFilterOptions(cases); // Populate filter dropdowns
+                } catch (error) {
+                    console.error("Error fetching cases:", error);
+                    alert("Failed to load cases. Please try again later.");
+                }
+            }
+
+            // Function to populate filter dropdowns
+            function populateFilterOptions(cases) {
+                // For editable dropdowns (datalist)
+                const caseIdOptions = document.getElementById("caseIdOptions");
+                const nationalIdOptions = document.getElementById("nationalIdOptions");
+
+                caseIdOptions.innerHTML = '';
+                nationalIdOptions.innerHTML = '';
+
+                // Get unique values
+                const caseIds = [...new Set(cases.map(caseItem => caseItem.id.toString()))];
+                const nationalIds = [...new Set(cases.map(caseItem => caseItem.citizenId))];
+                const caseTitles = [...new Set(cases.map(caseItem => caseItem.caseTitle))];
+                const statuses = [...new Set(cases.map(caseItem => caseItem.status))];
+                const dateCreateds = [...new Set(cases.map(caseItem => caseItem.dateCreated))];
+
+                // Populate datalists
+                caseIds.forEach(id => {
+                    const option = document.createElement("option");
+                    option.value = id;
+                    caseIdOptions.appendChild(option);
+                });
+
+                nationalIds.forEach(id => {
+                    const option = document.createElement("option");
+                    option.value = id;
+                    nationalIdOptions.appendChild(option);
+                });
+
+                // Populate regular dropdowns
+                populateDropdown(filterCaseTitle, caseTitles);
+                populateDropdown(filterStatus, statuses);
+                populateDropdown(filterDateCreated, dateCreateds);
+            }
+
+            // Function to populate a dropdown with options
+            function populateDropdown(dropdown, options) {
+                dropdown.innerHTML = '<option value="">All</option>';
+                options.forEach(option => {
+                    const optionElement = document.createElement("option");
+                    optionElement.value = option;
+                    optionElement.textContent = option;
+                    dropdown.appendChild(optionElement);
+                });
+            }
+
+            // Render cases in the table
+            function renderCases(cases) {
+                casesTableBody.innerHTML = "";
+                cases.forEach((caseItem) => {
+                    const statusClass = `status-${caseItem.status.toLowerCase()}`;
+                    const statusIcon = getStatusIcon(caseItem.status);
+                    const row = `
+            <tr>
+                <td>${caseItem.id}</td>
+                <td>${caseItem.citizenId}</td>
+                <td>${caseItem.caseTitle}</td>
+                <td>
+                    <div class="status-badge ${statusClass}">
+                        <span class="status-icon">${statusIcon}</span>
+                        ${caseItem.status}
+                    </div>
+                </td>
+                <td>${caseItem.dateCreated}</td>
+                <td class="action-cell">
+                    <button class="action-btn edit" data-id="${caseItem.id}"><i class="fas fa-edit"></i></button>
+                    <button class="action-btn delete" data-id="${caseItem.id}"><i class="fas fa-trash"></i></button>
+                    <button class="action-btn view-profile" data-id="${caseItem.id}" data-citizen-id="${caseItem.citizenId}"><i class="fas fa-eye"></i></button>
+                </td>
+            </tr>
+        `;
+                    casesTableBody.innerHTML += row;
+                });
+
+                // Add event listeners to edit buttons
+                document.querySelectorAll(".action-btn.edit").forEach((btn) => {
+                    btn.addEventListener("click", () => openEditCaseModal(btn.dataset.id));
+                });
+
+                // Add event listeners to delete buttons
+                document.querySelectorAll(".action-btn.delete").forEach((btn) => {
+                    btn.addEventListener("click", () => deleteCase(btn.dataset.id));
+                });
+
+                // Add event listeners to view profile buttons
+                document.querySelectorAll(".action-btn.view-profile").forEach((btn) => {
+                    btn.addEventListener("click", () => viewCaseProfile(btn.dataset.id, btn.dataset.citizenId));
+                });
+            }
+
+            function viewCaseProfile(caseId, citizenId) {
+                // Redirect to the case profile page with the case ID and citizen ID as query parameters
+                window.location.href = `/Case-Profile for Case_Manager.html?id=${caseId}&citizenId=${citizenId}`;
+            }
+
+            // Get appropriate icon for status
+            function getStatusIcon(status) {
+                switch (status) {
+                    case "Pending":
+                        return '<i class="fas fa-clock"></i>';
+                    case "Active":
+                        return '<i class="fas fa-chart-line"></i>';
+                    case "Completed":
+                        return '<i class="fas fa-check"></i>';
+                    case "Rejected":
+                        return '<i class="fas fa-times"></i>';
+                    default:
+                        return "";
+                }
+            }
+
+            // Update statistics
+            function updateStats() {
+                const counts = {
+                    total: cases.length,
+                    pending: cases.filter((c) => c.status === "Pending").length,
+                    active: cases.filter((c) => c.status === "Active").length,
+                    completed: cases.filter((c) => c.status === "Completed").length,
+                    rejected: cases.filter((c) => c.status === "Rejected").length,
+                };
+
+                totalCasesEl.textContent = counts.total;
+                pendingCasesEl.textContent = counts.pending;
+                activeCasesEl.textContent = counts.active;
+                completedCasesEl.textContent = counts.completed;
+                rejectedCasesEl.textContent = counts.rejected;
+            }
+
+            // Open modal for editing a case
+            function openEditCaseModal(id) {
+                const caseItem = cases.find((c) => c.id == id);
+                if (caseItem) {
+                    modalTitle.textContent = "Edit Case";
+                    caseIdInput.value = caseItem.id;
+                    citizenIdInput.value = caseItem.citizenId;
+                    caseTitleInput.value = caseItem.caseTitle;
+                    caseDescriptionInput.value = caseItem.caseDescription || "";
+                    statusInput.value = caseItem.status;
+                    caseModal.style.display = "flex";
+                    document.body.style.overflow = "hidden"; // Prevent scrolling when modal is open
+                }
+            }
+
+            // Save case (create or update)
+            async function saveCase() {
+                const id = caseIdInput.value;
+                const citizenId = citizenIdInput.value;
+                const caseTitle = caseTitleInput.value;
+                const status = statusInput.value;
+                const caseDescription = caseDescriptionInput.value;
+
+                if (!citizenId || !caseTitle || !status || !caseDescription) {
+                    alert("Please fill out all fields.");
+                    return;
+                }
+
+                try {
+                    let response;
+                    if (id) {
+                        // Update existing case
+                        response = await fetch(`/api/cases/${id}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                citizenId,
+                                caseTitle,
+                                status,
+                                caseDescription
+                            }),
+                            credentials: 'include' // Include cookies for session
+                        });
+                    } else {
+                        // Create new case
+                        response = await fetch("/api/cases", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                citizenId,
+                                caseTitle,
+                                status,
+                                caseDescription
+                            }),
+                            credentials: 'include' // Include cookies for session
+                        });
+                    }
+
+                    if (response.ok) {
+                        fetchCases();
+                        closeModal.click();
+                    } else {
+                        const error = await response.text();
+                        console.error("Failed to save case:", error);
+                        alert(`Failed to save case: ${error}`);
+                    }
+                } catch (error) {
+                    console.error("Error saving case:", error);
+                    alert("Failed to save case. Please try again.");
+                }
+            }
+
+            // Delete a case
+            async function deleteCase(id) {
+                if (confirm("Are you sure you want to delete this case?")) {
+                    try {
+                        const response = await fetch(`/api/cases/${id}`, {
+                            method: "DELETE",
+                            credentials: 'include' // Include cookies for session
+                        });
+
+                        if (response.ok) {
+                            fetchCases();
+                            alert("Case deleted successfully!");
+                        } else {
+                            const error = await response.text();
+                            console.error("Failed to delete case:", error);
+                            alert(`Failed to delete case: ${error}`);
+                        }
+                    } catch (error) {
+                        console.error("Error deleting case:", error);
+                        alert("Failed to delete case. Please try again.");
+                    }
+                }
+            }
+
+            // Event listeners
+            assignCaseBtn.addEventListener("click", () => {
+                modalTitle.textContent = "Assign New Case";
+                caseIdInput.value = "";
+                citizenIdInput.value = "";
+                caseTitleInput.value = "";
+                caseDescriptionInput.value = "";
+                statusInput.value = "Pending";
+                caseModal.style.display = "flex";
+                document.body.style.overflow = "hidden"; // Prevent scrolling when modal is open
+            });
+
+            refreshBtn.addEventListener("click", fetchCases);
+
+            closeModal.addEventListener("click", () => {
+                caseModal.style.display = "none";
+                document.body.style.overflow = "auto"; // Re-enable scrolling
+            });
+
+            cancelBtn.addEventListener("click", () => {
+                caseModal.style.display = "none";
+                document.body.style.overflow = "auto"; // Re-enable scrolling
+            });
+
+            saveBtn.addEventListener("click", saveCase);
+
+            // Close modal when clicking outside of it
+            window.addEventListener("click", (e) => {
+                if (e.target === caseModal) {
+                    caseModal.style.display = "none";
+                    document.body.style.overflow = "auto"; // Re-enable scrolling
+                }
+            });
+
+            // Load cases on page load
+            document.addEventListener('DOMContentLoaded', () => {
+                fetchCases();
+
+                // Check authentication status
+                checkAuthStatus();
+            });
+
+            // Function to check authentication status
+            async function checkAuthStatus() {
+                try {
+                    const response = await fetch('/api/cases', {
+                        method: 'HEAD',
+                        credentials: 'include'
+                    });
+
+                    if (response.status === 401) {
+                        window.location.href = '/login';
+                    }
+                } catch (error) {
+                    console.error('Error checking auth status:', error);
+                }
+            }
+
+            // Keyboard accessibility for modal
+            document.addEventListener('keydown', (e) => {
+                if (caseModal.style.display === 'flex') {
+                    if (e.key === 'Escape') {
+                        caseModal.style.display = 'none';
+                        document.body.style.overflow = "auto";
+                    }
+
+                    // Trap focus inside modal when open
+                    if (e.key === 'Tab') {
+                        const focusableElements = caseModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                        const firstElement = focusableElements[0];
+                        const lastElement = focusableElements[focusableElements.length - 1];
+
+                        if (e.shiftKey) {
+                            if (document.activeElement === firstElement) {
+                                lastElement.focus();
+                                e.preventDefault();
+                            }
+                        } else {
+                            if (document.activeElement === lastElement) {
+                                firstElement.focus();
+                                e.preventDefault();
+                            }
+                        }
+                    }
+                }
+            });
+    </script>
+</body>
+</html>
