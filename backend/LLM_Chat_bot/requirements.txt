@@ -1,18 +1,28 @@
-fastapi
-uvicorn
-langchain
-langchain-community
-langchain-huggingface
-langchain-chroma
-langchain-groq
-python-dotenv
-chromadb
-transformers
-torch
-pdfminer.six
-pypdf
-python-multipart
-langdetect
-deep-translator
-requests
-sse-starlette
+# Core Requirements
+fastapi==0.109.1
+uvicorn==0.27.0
+python-dotenv==1.0.0
+langchain==0.1.12
+langchain-community==0.0.28
+langchain-chroma==0.1.1
+langchain-groq==0.1.2
+huggingface-hub==0.22.2
+sentence-transformers==2.6.1
+pydantic==2.6.3
+
+# PDF Processing
+pypdf==4.1.0
+pdf2image==1.17.0
+
+# Translation/Internationalization
+deep-translator==1.11.4
+langdetect==1.0.9
+
+# Additional Utilities
+python-multipart==0.0.6
+aiofiles==23.2.1
+nest-asyncio==1.6.0
+
+# Development (optional)
+python-dotenv==1.0.0
+watchfiles==0.21.0
