@@ -1,28 +1,31 @@
-# Core Requirements
-fastapi==0.109.1
+# Core web framework
+fastapi==0.109.0
 uvicorn==0.27.0
-python-dotenv==1.0.0
-langchain==0.1.12
-langchain-community==0.0.28
-langchain-chroma==0.1.1
-langchain-groq==0.1.2
-huggingface-hub==0.22.2
-sentence-transformers==2.6.1
-pydantic==2.6.3
-
-# PDF Processing
-pypdf==4.1.0
-pdf2image==1.17.0
-
-# Translation/Internationalization
-deep-translator==1.11.4
-langdetect==1.0.9
-
-# Additional Utilities
 python-multipart==0.0.6
-aiofiles==23.2.1
-nest-asyncio==1.6.0
 
-# Development (optional)
+# LangChain ecosystem
+langchain==0.1.0
+langchain-community==0.0.20
+langchain-huggingface==0.0.4
+langchain-chroma==0.0.5
+langchain-groq==0.1.0
+
+# Vector database
+chromadb==0.4.22
+
+# NLP & AI
+transformers==4.37.0
+torch==2.1.2
+
+# PDF processing
+pypdf==3.17.4
+pdfminer.six==20221105
+
+# Utilities
 python-dotenv==1.0.0
-watchfiles==0.21.0
+langdetect==1.0.9
+deep-translator==1.11.4
+requests==2.31.0
+
+# Server-Sent Events
+sse-starlette==1.8.0
